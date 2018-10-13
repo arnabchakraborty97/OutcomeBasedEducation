@@ -1,0 +1,35 @@
+<% include ../partials/header %>
+
+	<div class="container">
+
+		<div class="card">
+			<div class="card-header">
+				<h2 class="text-center"><%= title %></h2>
+			</div>
+			<div class="card-body">
+				
+				<form action="/courses" method="POST">
+					
+					<label for="name">Name</label>
+					<input type="text" id="name" <% if(typeof course != 'undefined') { %> value="<%= course.name %>" <% } %> name="name" class="form-control">
+
+					<label for="code">Code</label>
+					<input type="text" id="code" <% if(typeof course != 'undefined') { %> value="<%= course.code %>" <% } %> name="code" class="form-control">
+
+					<label for="semester">Semester</label>
+					<input type="number" min="1" max="8" id="semester" <% if(typeof course != 'undefined') { %> value="<%= course.semester %>" <% } %> name="semester" class="form-control">
+
+					<br>
+
+					<div class="text-center">
+						<input type="submit" value="Save" class="btn btn-success">
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+	
+<% include ../partials/footer %>
