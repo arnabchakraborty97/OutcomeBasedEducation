@@ -1,0 +1,39 @@
+<% include ../partials/header %>
+
+	<div class="container">
+
+		<div class="card">
+			<div class="card-header">
+				<h2 class="text-center"><%= title %></h2>
+			</div>
+			<div class="card-body">
+				
+				<form <% if (typeof group == 'undefined') { %> action="/groups" <% } else { %> action="/groups/<%= group.id %>?_method=PUT" <% } %> method="POST">
+					
+					<label for="name">Name</label>
+					<input type="text" id="name" <% if(typeof group != 'undefined') { %> value="<%= group.name %>" <% } %> name="name" class="form-control">
+
+					<label for="course">Course</label>
+					<select class="form-control" id="course" name="courseId">
+						
+						<% courses.forEach((course) => { %>
+							<option value="<%= course.id %>" <% if (typeof group != 'undefined') { %> <% if (group.Course.id == course.id) { %> selected <% } %> <% } %>><%= course.name %></option>
+						<% }) %>
+
+					</select>
+					
+
+					<br>
+
+					<div class="text-center">
+						<input type="submit" value="Save" class="btn btn-success">
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+	
+<% include ../partials/footer %>

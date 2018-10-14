@@ -24,11 +24,7 @@ module.exports.Store = function(req, res) {
 
 module.exports.Edit = function(req, res) {
 
-	Course.findOne({
-		where: {
-			id: req.params.id
-		}
-	}).then(function(course) {
+	Course.findById(req.params.id).then(function(course) {
 		var context = {
 			title: 'Edit Course',
 			course: course

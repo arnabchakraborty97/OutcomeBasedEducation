@@ -1,0 +1,49 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<% if(Object.keys(groups).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Group Name</th>
+						<th>Course</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% groups.forEach(function (group) { %>
+
+						<tr>
+							<td><%= group.id %></td>
+							<td><%= group.name %></td>
+							<td><%= group.Course.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/groups/<%= group.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/groups/<%= group.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
+
+					<% }) %>
+
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
+
+		<div class="text-center">
+			<a href="/groups/create" class="btn btn-success">Add Group</a>
+		</div>
+
+	</div>
+
+<% include ../partials/footer %>

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Group.associate = function(models) {
     // associations can be defined here
-    Group.belongsTo(models.Course);
+    Group.belongsTo(models.Course, { foreignKey: 'courseId' });
     Group.hasMany(models.Tool);
   };
   return Group;
