@@ -10,7 +10,7 @@ module.exports.Index = function(req, res) {
 
 module.exports.Create = function(req, res) {
 
-	res.render('courses/create', { title: 'Create Course' });
+	res.render('courses/createOrEdit', { title: 'Create Course' });
 
 }
 
@@ -34,13 +34,19 @@ module.exports.Edit = function(req, res) {
 			course: course
 		}
 
-		res.render('courses/create', context);
+		res.render('courses/createOrEdit', context);
 	});
 }
 
 module.exports.Update = function(req, res) {
 
-	res.send('Yes');
+	Course.findOne({
+		where: {
+			id: req.params.id
+		}
+	}).then((course) => {
+		course.update(req.body).then(() => res.redirect('/courses'))
+	})
 
 }
 

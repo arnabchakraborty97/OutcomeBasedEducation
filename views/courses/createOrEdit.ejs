@@ -8,7 +8,7 @@
 			</div>
 			<div class="card-body">
 				
-				<form action="/courses" method="POST">
+				<form <% if (typeof course == 'undefined') { %> action="/courses" <% } else { %> action="/courses/<%= course.id %>?_method=PUT" <% } %> method="POST">
 					
 					<label for="name">Name</label>
 					<input type="text" id="name" <% if(typeof course != 'undefined') { %> value="<%= course.name %>" <% } %> name="name" class="form-control">
