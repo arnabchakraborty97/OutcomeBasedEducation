@@ -5,9 +5,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Chart.associate = function(models) {
     // associations can be defined here
-    Chart.belongsTo(models.Course);
-    Chart.belongsTo(models.Tool);
-    Chart.belongsTo(models.ProgramOutcome);
+    Chart.belongsTo(models.Course, { foreignKey: 'courseId' });
+    Chart.belongsTo(models.Tool, { foreignKey: 'toolId' });
+    Chart.belongsTo(models.ProgramOutcome, { foreignKey: 'programoutcomeId' });
   };
   return Chart;
 };
