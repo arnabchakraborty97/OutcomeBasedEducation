@@ -1,0 +1,53 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<% if(Object.keys(students).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Student Name</th>
+						<th>Roll</th>
+						<th>Batch Of</th>
+						<th>Department</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% students.forEach(function (student) { %>
+
+						<tr>
+							<td><%= student.id %></td>
+							<td><%= student.name %></td>
+							<td><%= student.roll %></td>
+							<td><%= student.batch_of %></td>
+							<td><%= student.Department.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/students/<%= student.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/students/<%= student.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
+
+					<% }) %>
+
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
+
+		<div class="text-center">
+			<a href="/students/create" class="btn btn-success">Add Student</a>
+		</div>
+
+	</div>
+
+<% include ../partials/footer %>
