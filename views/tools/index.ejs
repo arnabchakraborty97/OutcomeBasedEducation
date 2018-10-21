@@ -1,0 +1,51 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<% if(Object.keys(tools).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Tool Name</th>
+						<th>Group</th>
+						<th>Course</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% tools.forEach(function (tool) { %>
+
+						<tr>
+							<td><%= tool.id %></td>
+							<td><%= tool.name %></td>
+							<td><%= tool.Group.name %></td>
+							<td><%= tool.Group.Course.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/tools/<%= tool.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/tools/<%= tool.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
+
+					<% }) %>
+
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
+
+		<div class="text-center">
+			<a href="/tools/create" class="btn btn-success">Add Tool</a>
+		</div>
+
+	</div>
+
+<% include ../partials/footer %>

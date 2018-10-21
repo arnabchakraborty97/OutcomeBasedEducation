@@ -3,6 +3,7 @@ var router = express.Router();
 var HomeController = require('../controllers/HomeController');
 var CourseController = require('../controllers/CourseController');
 var GroupController = require('../controllers/GroupController');
+var ToolController = require('../controllers/ToolController');
 
 router.get('/', HomeController.Index);
 
@@ -21,5 +22,13 @@ router.post('/groups', GroupController.Store);
 router.get('/groups/:id/edit', GroupController.Edit);
 router.put('/groups/:id', GroupController.Update);
 router.delete('/groups/:id', GroupController.Destroy);
+
+// Tools
+router.get('/tools', ToolController.Index);
+router.get('/tools/create', ToolController.Create);
+router.post('/tools', ToolController.Store);
+router.get('/tools/:id/edit', ToolController.Edit);
+router.put('/tools/:id', ToolController.Update);
+router.delete('/tools/:id', ToolController.Destroy);
 
 module.exports = router;
