@@ -1,0 +1,47 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<% if(Object.keys(programoutcomes).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Program Outcome Name</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% programoutcomes.forEach(function (programoutcome) { %>
+
+						<tr>
+							<td><%= programoutcome.id %></td>
+							<td><%= programoutcome.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/programoutcomes/<%= programoutcome.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/programoutcomes/<%= programoutcome.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
+
+					<% }) %>
+
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
+
+		<div class="text-center">
+			<a href="/programoutcomes/create" class="btn btn-success">Add Program Outcome</a>
+		</div>
+
+	</div>
+
+<% include ../partials/footer %>

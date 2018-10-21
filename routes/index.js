@@ -4,6 +4,7 @@ var HomeController = require('../controllers/HomeController');
 var CourseController = require('../controllers/CourseController');
 var GroupController = require('../controllers/GroupController');
 var ToolController = require('../controllers/ToolController');
+var ProgramOutcomeController = require('../controllers/ProgramOutcomeController');
 
 router.get('/', HomeController.Index);
 
@@ -30,5 +31,13 @@ router.post('/tools', ToolController.Store);
 router.get('/tools/:id/edit', ToolController.Edit);
 router.put('/tools/:id', ToolController.Update);
 router.delete('/tools/:id', ToolController.Destroy);
+
+// Program Outcomes
+router.get('/programoutcomes', ProgramOutcomeController.Index);
+router.get('/programoutcomes/create', ProgramOutcomeController.Create);
+router.post('/programoutcomes', ProgramOutcomeController.Store);
+router.get('/programoutcomes/:id/edit', ProgramOutcomeController.Edit);
+router.put('/programoutcomes/:id', ProgramOutcomeController.Update);
+router.delete('/programoutcomes/:id', ProgramOutcomeController.Destroy);
 
 module.exports = router;
