@@ -23,7 +23,7 @@ module.exports.Index = function(req, res) {
 
 module.exports.Create = function(req, res) {
 
-	Course.findById(8, {
+	Course.findById(9, {
 		include: [ {
 			model: Group,
 			include: [ Tool ]

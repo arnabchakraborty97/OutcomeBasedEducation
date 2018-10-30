@@ -14,11 +14,10 @@
 					<table class="table table-bordered">
 						<thead class="thead-dark">
 							<tr>
-								<th>Course</th>
-								<th>Group</th>
-								<th>Tool</th>
-								<th>Program Outcome</th>
-								<th>Fulfil</th>
+								<th width="5%">Course</th>
+								<th width="15%">Group</th>
+								<th width="20%">Tool</th>
+								<th width="60%">PO Fulfil</th>
 							</tr>
 						</thead>
 						<tbody class="table-light">
@@ -45,14 +44,17 @@
 										</select>
 									</td>
 									<td>
-										<select id="programoutcome" name="programoutcome" class="form-control">
-											<% programoutcomes.forEach((programoutcome) => { %>
-												<option value="<%= programoutcome.id %>"><%= programoutcome.name %></option>
-											<% }) %>
-										</select>
-									</td>
-									<td>
-										<input type="text" name="fulfil" class="form-control">
+										<table class="table table-sm table-bordered">
+											<tbody class="tbody-light">
+												<tr>
+													<% programoutcomes.forEach((programoutcome) => { %>
+														<td>
+															<input type="text" name="fulfil" class="form-control" placeholder="<%= programoutcome.id %>">
+														</td>
+													<% }) %>
+												</tr>
+											</tbody>
+										</table>
 									</td>
 								</tr>
 							<% } %>

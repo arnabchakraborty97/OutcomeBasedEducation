@@ -24,7 +24,7 @@ module.exports.Create = function(req, res) {
 
 	Chart.findAll({
 		where: {
-			courseId: 7
+			courseId: 9
 		},
 		include: [
 			Course,
@@ -35,7 +35,7 @@ module.exports.Create = function(req, res) {
 			}
 		]
 	}).then((charts) => {
-		Course.findById(7).then((course) => {
+		Course.findById(9).then((course) => {
 			Student.findAll().then((students) => {
 				res.render('assessments/createOrEdit', {
 					title: 'Create Assessment',
