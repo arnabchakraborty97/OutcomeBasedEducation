@@ -48,6 +48,25 @@ module.exports.Store = function(req, res) {
 
 module.exports.Edit = function(req, res) {
 
+	Chart.findById(req.params.id, {
+		include: [ Course, Tool, ProgramOutcome ]
+	}).then((chart) => {
+		Course.findById(chart.Course.id, {
+			include: [ {
+				model: Group,
+				include: [ Tool ]
+			} ]
+		}).then((course) => {
+			ProgramOutcome.findAll().then((programoutcomes) => {
+				res.send({
+					title: 'Create Chart',
+					chart: chart,
+					course: course,
+					programoutcomes: programoutcomes
+				})
+			})
+		})
+	})
 	
 }
 
@@ -59,6 +78,10 @@ module.exports.Update = function(req, res) {
 
 module.exports.Destroy = function(req, res) {
 
-	
+	Chart.destroy({
+		where: {
+			id: req.params.id
+		}
+	}).then(() => res.redirect('/charts'))
 
 }
