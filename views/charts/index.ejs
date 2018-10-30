@@ -1,0 +1,54 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<% if(Object.keys(charts).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Course</th>
+						<th>Group</th>
+						<th>Tool</th>
+						<th>Program Outcome</th>
+						<th>Fulfils</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% charts.forEach(function (chart) { %>
+
+						<tr>
+							<td><%= chart.id %></td>
+							<td><%= chart.Course.name %></td>
+							<td><%= chart.Tool.Group.name %></td>
+							<td><%= chart.ProgramOutcome.name %></td>
+							<td><%= chart.fulfil %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/charts/<%= chart.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/charts/<%= chart.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
+
+					<% }) %>
+
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
+
+		<div class="text-center">
+			<a href="/charts/create" class="btn btn-success">Add Chart</a>
+		</div>
+
+	</div>
+
+<% include ../partials/footer %>

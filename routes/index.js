@@ -7,6 +7,7 @@ var ToolController = require('../controllers/ToolController');
 var ProgramOutcomeController = require('../controllers/ProgramOutcomeController');
 var DepartmentController = require('../controllers/DepartmentController');
 var StudentController = require('../controllers/StudentController');
+var ChartController = require('../controllers/ChartController');
 
 router.get('/', HomeController.Index);
 
@@ -57,5 +58,13 @@ router.post('/students', StudentController.Store);
 router.get('/students/:id/edit', StudentController.Edit);
 router.put('/students/:id', StudentController.Update);
 router.delete('/students/:id', StudentController.Destroy);
+
+// Charts
+router.get('/charts', ChartController.Index);
+router.get('/charts/create', ChartController.Create);
+router.post('/charts', ChartController.Store);
+router.get('/charts/:id/edit', ChartController.Edit);
+router.put('/charts/:id', ChartController.Update);
+router.delete('/charts/:id', ChartController.Destroy);
 
 module.exports = router;

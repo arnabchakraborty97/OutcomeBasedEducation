@@ -1,0 +1,76 @@
+<% include ../partials/header %>
+
+	<div class="container">
+
+		<div class="card">
+			<div class="card-header">
+				<h2 class="text-center"><%= title %></h2>
+			</div>
+			<div class="card-body">
+				
+				<form <% if (typeof chart == 'undefined') { %> action="/charts" <% } else { %> action="/charts/<%= chart.id %>?_method=PUT" <% } %> method="POST">
+					
+
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th>Course</th>
+								<th>Group</th>
+								<th>Tool</th>
+								<th>Program Outcome</th>
+								<th>Fulfil</th>
+							</tr>
+						</thead>
+						<tbody class="table-light">
+							<% for (var i = 0; i < programoutcomes.length; i++) { %>
+								<tr>
+									<td>
+										<input type="text" name="course" readonly value="<%= course.name %>" class="form-control">
+									</td>
+									<td>
+										<select id="group" name="group[]" class="form-control">
+											<% course.Groups.forEach((group) => { %>
+												<option value="<%= group.id %>"><%= group.name %></option>
+											<% }) %>
+										</select>
+									</td>
+									<td>
+										<select id="tool" name="tool[]" class="form-control">
+											<% course.Groups.forEach((group) => { %>
+												<% group.Tools.forEach((tool) => { %>
+													<option value="<%= tool.id %>"><%= tool.name %></option>
+												<% }) %>
+											<% }) %>
+										</select>
+									</td>
+									<td>
+										<select id="programoutcome" name="programoutcome[]" class="form-control">
+											<% programoutcomes.forEach((programoutcome) => { %>
+												<option value="<%= programoutcome.id %>"><%= programoutcome.name %></option>
+											<% }) %>
+										</select>
+									</td>
+									<td>
+										<input type="text" name="fulfil[]" class="form-control">
+									</td>
+								</tr>
+							<% } %>
+						</tbody>
+					</table>
+
+					
+
+					<br>
+
+					<div class="text-center">
+						<input type="submit" value="Save" class="btn btn-success">
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+
+	</div>
+	
+<% include ../partials/footer %>
