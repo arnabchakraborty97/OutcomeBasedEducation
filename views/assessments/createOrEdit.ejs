@@ -10,7 +10,13 @@
 				
 				<form <% if (typeof assessment == 'undefined') { %> action="/assessments" <% } else { %> action="/assessments/<%= assessment.id %>?_method=PUT" <% } %> method="POST">
 
-					
+					<select id="student" name="student" class="form-control col-md-3 offset-md-5">
+						<% students.forEach((student) => { %>
+							<option value="<%= student.id %>"><%= student.name %></option>
+						<% }) %>
+					</select>
+
+					<br>
 					
 					<table class="table table-bordered">
 						<thead class="thead-dark">

@@ -36,12 +36,12 @@ module.exports.Create = function(req, res) {
 		]
 	}).then((charts) => {
 		Course.findById(7).then((course) => {
-			Student.findAll().then((student) => {
+			Student.findAll().then((students) => {
 				res.render('assessments/createOrEdit', {
 					title: 'Create Assessment',
 					charts: charts,
 					course: course,
-					student: student
+					students: students
 				})
 			})
 		})
@@ -68,6 +68,12 @@ module.exports.Update = function(req, res) {
 
 module.exports.Destroy = function(req, res) {
 
-	
+	Assessment.destroy({
+		where: {
+			id: req.params.id
+		},
+	}).then(() => {
+		res.redirect('/assessments')
+	})
 
 }
