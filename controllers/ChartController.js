@@ -16,24 +16,40 @@ module.exports.Index = function(req, res) {
 			}
 		]
 	}).then((charts) => {
-		res.render('charts/index', { title: 'Charts', charts: charts })
+		Course.findAll().then((courses) => {
+			res.render('charts/index', {
+				title: 'Charts',
+				charts: charts,
+				courses: courses
+			})
+		})
 	})
 
 }
 
 module.exports.Create = function(req, res) {
 
-	Course.findById(9, {
+	Course.findById(req.body.course_id, {
 		include: [ {
 			model: Group,
 			include: [ Tool ]
 		} ]
 	}).then((course) => {
 		ProgramOutcome.findAll().then((programoutcomes) => {
-			res.render('charts/createOrEdit', {
-				title: 'Create Chart',
-				course: course,
-				programoutcomes: programoutcomes
+			Tool.findAll({
+				include: [{
+					model: Group,
+					where: {
+						courseId: req.body.course_id
+					}
+				}]
+			}).then((tools) => {
+				res.render('charts/createOrEdit', {
+					title: 'Create Chart',
+					tools: tools,
+					course: course,
+					programoutcomes: programoutcomes
+				})
 			})
 		})
 	})
@@ -42,8 +58,18 @@ module.exports.Create = function(req, res) {
 
 module.exports.Store = function(req, res) {
 
-	res.send(req.body)
+	for (var i = 0; i < req.body.course.length; i++) {
 
+		Chart.create({
+			courseId: req.body.course[i],
+			toolId: req.body.tool[i],
+			programoutcomeId: req.body.programoutcome[i],
+			fulfil: req.body.fulfil[i]
+		})
+
+	}
+
+	res.redirect('/charts')
 }
 
 module.exports.Edit = function(req, res) {

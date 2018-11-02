@@ -14,51 +14,42 @@
 					<table class="table table-bordered">
 						<thead class="thead-dark">
 							<tr>
-								<th width="5%">Course</th>
-								<th width="15%">Group</th>
-								<th width="20%">Tool</th>
-								<th width="60%">PO Fulfil</th>
+								<th width="15%">Course</th>
+								<th>Group - Tool</th>
+								<th>Program Outcome</th>
+								<th>Fulfil</th>
 							</tr>
 						</thead>
 						<tbody class="table-light">
-							<% for (var i = 0; i < programoutcomes.length; i++) { %>
-								<tr>
-									<td>
-										<div class="list-group-item"><%= course.name %></div>
-										<input type="hidden" name="course" value="<%= course.id %>" class="form-control">
-									</td>
-									<td>
-										<select id="group" name="group" class="form-control">
-											<% course.Groups.forEach((group) => { %>
-												<option value="<%= group.id %>"><%= group.name %></option>
-											<% }) %>
-										</select>
-									</td>
-									<td>
-										<select id="tool" name="tool" class="form-control">
-											<% course.Groups.forEach((group) => { %>
-												<% group.Tools.forEach((tool) => { %>
-													<option value="<%= tool.id %>"><%= tool.name %></option>
+							<% for (var i = 0; i < tools.length; i++) { %>
+								<% programoutcomes.forEach((programoutcome) => { %>
+									<tr>
+										<td>
+											<input type="hidden" name="course" value="<%= course.id %>">
+											<div class="list-group-item"><%= course.name %></div>
+										</td>
+										<td>
+											<select name="tool" class="form-control">
+												
+												<% tools.forEach((tool) => { %>
+
+													<option value="<%= tool.id %>"><%= tool.Group.name %> - <%= tool.name %></option>
+
 												<% }) %>
-											<% }) %>
-										</select>
-									</td>
-									<td>
-										<table class="table table-sm table-bordered">
-											<tbody class="tbody-light">
-												<tr>
-													<% programoutcomes.forEach((programoutcome) => { %>
-														<td>
-															<input type="text" name="fulfil" class="form-control" placeholder="<%= programoutcome.id %>">
-														</td>
-													<% }) %>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
+												
+											</select>
+										</td>
+										<td>
+											<input type="text" name="programoutcome" readonly class="form-control" value="<%= programoutcome.id %>">
+										</td>
+										<td>
+											<input type="text" name="fulfil" class="form-control">
+										</td>
+									</tr>
+								<% }) %>
 							<% } %>
-						</tbody>
+							
+						</tbody>	
 					</table>
 
 					

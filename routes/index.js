@@ -62,7 +62,7 @@ router.delete('/students/:id', StudentController.Destroy);
 
 // Charts
 router.get('/charts', ChartController.Index);
-router.get('/charts/create', ChartController.Create);
+router.post('/charts/create', ChartController.Create);
 router.post('/charts', ChartController.Store);
 router.get('/charts/:id/edit', ChartController.Edit);
 router.put('/charts/:id', ChartController.Update);

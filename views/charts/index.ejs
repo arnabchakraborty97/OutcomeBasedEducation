@@ -46,7 +46,15 @@
 		<% } %>
 
 		<div class="text-center">
-			<a href="/charts/create" class="btn btn-success">Add Chart</a>
+			<form method="POST" action="/charts/create">
+				<select name="course_id" class="form-control">
+					<% courses.forEach((course) => { %>
+						<option value="<%= course.id %>"><%= course.name %></option>
+					<% }) %>
+				</select>
+
+				<input type="submit" value="Add Chart" class="btn btn-success">
+			</form>
 		</div>
 
 	</div>
