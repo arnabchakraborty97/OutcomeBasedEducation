@@ -19,22 +19,24 @@
 				<tbody class="table-light">
 					
 					<% charts.forEach(function (chart) { %>
-
-						<tr>
-							<td><%= chart.id %></td>
-							<td><%= chart.Course.name %></td>
-							<td><%= chart.Tool.Group.name %></td>
-							<td><%= chart.ProgramOutcome.name %></td>
-							<td><%= chart.fulfil %></td>
-							<td>
-								<a class="btn btn-sm btn-secondary" href="/charts/<%= chart.id %>/edit">Edit</a>
-							</td>
-							<td>
-								<form action="/charts/<%= chart.id %>?_method=DELETE" method="POST">
-									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-								</form>
-							</td>
-						</tr>
+						<% if(chart.fulfil !== '') { %>
+							<tr>
+								<td><%= chart.id %></td>
+								<td><%= chart.Course.name %></td>
+								<td><%= chart.Tool.Group.name %></td>
+								<td><%= chart.Tool.name %></td>
+								<td><%= chart.ProgramOutcome.name %></td>
+								<td><%= chart.fulfil %></td>
+								<td>
+									<a class="btn btn-sm btn-secondary" href="/charts/<%= chart.id %>/edit">Edit</a>
+								</td>
+								<td>
+									<form action="/charts/<%= chart.id %>?_method=DELETE" method="POST">
+										<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+									</form>
+								</td>
+							</tr>
+						<% } %>
 
 					<% }) %>
 

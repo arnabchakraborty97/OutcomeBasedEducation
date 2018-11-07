@@ -71,6 +71,7 @@ router.delete('/charts/:id', ChartController.Destroy);
 // Assessment
 router.get('/assessments', AssessmentController.Index);
 router.get('/assessments/create', AssessmentController.Create);
+router.post('/assessments/create', AssessmentController.Create);
 router.post('/assessments', AssessmentController.Store);
 router.get('/assessments/:id/edit', AssessmentController.Edit);
 router.put('/assessments/:id', AssessmentController.Update);
