@@ -1,0 +1,111 @@
+<% include ../partials/header %>
+
+	<div class="container">
+		
+		<div class="card">
+			<div class="card-header">
+				<h2 class="text-center"><%= title %></h2>
+			</div>
+			<div class="card-body">
+				
+				<form method="POST" action="/reports" class="form-group">
+					
+					<div class="row">
+						<label for="student" class="col-form-label col-md-2 text-md-right">Student: </label>
+						<select class="form-control col-md-3" id="student" name="student">
+							<% students.forEach((student) => { %>
+								<option value="<%= student.id %>" <% if (typeof student_selected !== 'undefined') { %> <% if(student_selected == student.id) { %> selected <% } %> <% } %>><%= student.roll %> - <%= student.name %> - <%= student.Department.name %></option>
+							<% }) %>
+						</select>
+
+						<label for="semester" class="col-form-label col-md-2 text-md-right">Semester: </label>
+						<select class="form-control col-md-3" id="semester" name="semester">
+							<option value="1" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 1) { %> selected <% } %> <% } %>>1st</option>
+							<option value="2" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 2) { %> selected <% } %> <% } %>>2nd</option>
+							<option value="3" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 3) { %> selected <% } %> <% } %>>3rd</option>
+							<option value="4" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 4) { %> selected <% } %> <% } %>>4th</option>
+							<option value="5" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 5) { %> selected <% } %> <% } %>>5th</option>
+							<option value="6" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 6) { %> selected <% } %> <% } %>>6th</option>
+							<option value="7" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 7) { %> selected <% } %> <% } %>>7th</option>
+							<option value="8" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 8) { %> selected <% } %> <% } %>>8th</option>
+						</select>
+					</div>
+
+					<br>
+
+					<input type="submit" value="Submit" class="btn btn-success col-md-2 offset-md-5">
+
+				</form>
+
+			</div>
+		</div>
+
+		<% if(typeof student_selected !== 'undefined') { %>
+
+			<div class="card">
+				<div class="card-header">
+					<h2 class="text-center">Results</h2>
+				</div>
+				<div class="card-body">
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th>Program Outcome</th>
+								<th>Score</th>
+							</tr>
+						</thead>
+						<tbody class="tbody-light">
+							<tr>
+								<td>PO1</td>
+								<td><%= PO1 %></td>
+							</tr>
+							<tr>
+								<td>PO2</td>
+								<td><%= PO2 %></td>
+							</tr>
+							<tr>
+								<td>PO3</td>
+								<td><%= PO3 %></td>
+							</tr>
+							<tr>
+								<td>PO4</td>
+								<td><%= PO4 %></td>
+							</tr>
+							<tr>
+								<td>PO5</td>
+								<td><%= PO5 %></td>
+							</tr>
+							<tr>
+								<td>PO6</td>
+								<td><%= PO6 %></td>
+							</tr>
+							<tr>
+								<td>PO7</td>
+								<td><%= PO7 %></td>
+							</tr>
+							<tr>
+								<td>PO8</td>
+								<td><%= PO8 %></td>
+							</tr>
+							<tr>
+								<td>PO9</td>
+								<td><%= PO9 %></td>
+							</tr>
+							<tr>
+								<td>PO10</td>
+								<td><%= PO10 %></td>
+							</tr>
+							<tr>
+								<td>PO11</td>
+								<td><%= PO11 %></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		<% } %>
+
+	</div>
+
+<% include ../partials/footer %>
