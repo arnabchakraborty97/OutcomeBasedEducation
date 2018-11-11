@@ -10,7 +10,7 @@ module.exports = {
       },
       score: {
         allowNull: false,
-        type: Sequelize.DECIMAL
+        type: Sequelize.DOUBLE
       },
       studentId: {
         allowNull: false,

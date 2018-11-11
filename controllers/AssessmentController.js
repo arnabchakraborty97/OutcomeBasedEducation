@@ -80,7 +80,7 @@ module.exports.Store = function(req, res) {
 		}).then((charts) => {
 			var c = 0
 			charts.forEach((chart) => {
-				if (chart.fulfil !== '') {
+				if (chart.fulfil == 'S') {
 					Assessment.create({
 						score: req.body.score[c++],
 						studentId: req.body.student,
@@ -88,6 +88,20 @@ module.exports.Store = function(req, res) {
 						programoutcomeId: chart.ProgramOutcome.id
 					})
 					// console.log('Score: ' + req.body.score[c++] + ', ProgramOutcome: ' + chart.ProgramOutcome.id)
+				} else if (chart.fulfil == 'M') {
+					Assessment.create({
+						score: 0.6 * parseInt(req.body.score[c++]),
+						studentId: req.body.student,
+						courseId: req.body.course,
+						programoutcomeId: chart.ProgramOutcome.id
+					})
+				} else if (chart.fulfil == 'W') {
+					Assessment.create({
+						score: 0.2 * parseInt(req.body.score[c++]),
+						studentId: req.body.student,
+						courseId: req.body.course,
+						programoutcomeId: chart.ProgramOutcome.id
+					})
 				}
 			})
 
