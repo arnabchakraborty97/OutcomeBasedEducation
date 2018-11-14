@@ -1,51 +1,48 @@
 <% include ../partials/header %>
-
-	<div class="container">
 		
-		<% if(Object.keys(courses).length) { %>
+	<% if(Object.keys(courses).length) { %>
 
-			<table class="table table-bordered">
-				<thead class="thead-dark">
+		<table class="table table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>#</th>
+					<th>Course Name</th>
+					<th>Code</th>
+					<th>Semester</th>
+					<th colspan="2">Actions</th>
+				</tr>
+			</thead>
+			<tbody class="table-light">
+				
+				<% courses.forEach(function (course) { %>
+
 					<tr>
-						<th>#</th>
-						<th>Course Name</th>
-						<th>Code</th>
-						<th>Semester</th>
-						<th colspan="2">Actions</th>
+						<td><%= course.id %></td>
+						<td><%= course.name %></td>
+						<td><%= course.code %></td>
+						<td><%= course.semester %></td>
+						<td>
+							<a class="btn btn-sm btn-secondary" href="/courses/<%= course.id %>/edit">Edit</a>
+						</td>
+						<td>
+							<form action="/courses/<%= course.id %>?_method=DELETE" method="POST">
+								<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+							</form>
+						</td>
 					</tr>
-				</thead>
-				<tbody class="table-light">
-					
-					<% courses.forEach(function (course) { %>
 
-						<tr>
-							<td><%= course.id %></td>
-							<td><%= course.name %></td>
-							<td><%= course.code %></td>
-							<td><%= course.semester %></td>
-							<td>
-								<a class="btn btn-sm btn-secondary" href="/courses/<%= course.id %>/edit">Edit</a>
-							</td>
-							<td>
-								<form action="/courses/<%= course.id %>?_method=DELETE" method="POST">
-									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-								</form>
-							</td>
-						</tr>
+				<% }) %>
 
-					<% }) %>
+			</tbody>
+		</table>
 
-				</tbody>
-			</table>
+	<% } else { %>
+		Nothing to show
+	<% } %>
 
-		<% } else { %>
-			Nothing to show
-		<% } %>
-
-		<div class="text-center">
-			<a href="/courses/create" class="btn btn-success">Add Course</a>
-		</div>
-
+	<div class="text-center">
+		<a href="/courses/create" class="btn btn-success">Add Course</a>
 	</div>
+
 
 <% include ../partials/footer %>

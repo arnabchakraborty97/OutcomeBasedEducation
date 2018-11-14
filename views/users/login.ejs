@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+		
+	<div class="col-md-6 offset-md-3">
+	 	<div class="card">
+	 		<div class="card-header">
+	 			<h2 class="text-center"><%= title %></h2>
+	 		</div>
+	 		<div class="card-body">
+	 			<form method="POST" action="/login">
+	 				
+	 				<div class="row">
+	 					<label for="username" class="col-form-label col-md-3 text-md-right">Username: </label>
+	 					<input type="text" name="username" class="form-control col-md-8">
+	 				</div>
+
+	 				<div class="row">
+	 					<label for="password" class="col-form-label col-md-3 text-md-right">Password: </label>
+	 					<input type="password" name="password" class="form-control col-md-8">
+	 				</div>
+
+	 				<br>
+
+	 				<div class="text-center">
+	 					<input type="submit" value="Login" class="btn btn-primary col-md-2">
+	 				</div>
+
+	 			</form>
+	 		</div>
+	 	</div>
+	</div>
+
+<% include ../partials/footer %>

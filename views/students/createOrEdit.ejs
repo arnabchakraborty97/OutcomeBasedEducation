@@ -1,44 +1,40 @@
 <% include ../partials/header %>
 
-	<div class="container">
-
-		<div class="card">
-			<div class="card-header">
-				<h2 class="text-center"><%= title %></h2>
-			</div>
-			<div class="card-body">
-				
-				<form <% if (typeof student == 'undefined') { %> action="/students" <% } else { %> action="/students/<%= student.id %>?_method=PUT" <% } %> method="POST">
-					
-					<label for="name">Name</label>
-					<input type="text" id="name" <% if(typeof student != 'undefined') { %> value="<%= student.name %>" <% } %> name="name" class="form-control">
-
-					<label for="roll">Roll No</label>
-					<input type="text" id="roll" <% if(typeof student != 'undefined') { %> value="<%= student.roll %>" <% } %> name="roll" class="form-control">
-
-					<label for="batch_of">Batch Of</label>
-					<input type="text" id="batch_of" <% if(typeof student != 'undefined') { %> value="<%= student.batch_of %>" <% } %> name="batch_of" class="form-control">
-
-					<label for="batch_of">Department</label>
-					<select class="form-control" id="department" name="departmentId">
-						
-						<% departments.forEach((department) => { %>
-							<option value="<%= department.id %>" <% if (typeof student != 'undefined') { %> <% if (student.Department.id == department.id) { %> selected <% } %> <% } %>><%= department.name %></option>
-						<% }) %>
-
-					</select>
-
-					<br>
-
-					<div class="text-center">
-						<input type="submit" value="Save" class="btn btn-success">
-					</div>
-
-				</form>
-
-			</div>
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center"><%= title %></h2>
 		</div>
+		<div class="card-body">
+			
+			<form <% if (typeof student == 'undefined') { %> action="/students" <% } else { %> action="/students/<%= student.id %>?_method=PUT" <% } %> method="POST">
+				
+				<label for="name">Name</label>
+				<input type="text" id="name" <% if(typeof student != 'undefined') { %> value="<%= student.name %>" <% } %> name="name" class="form-control">
 
+				<label for="roll">Roll No</label>
+				<input type="text" id="roll" <% if(typeof student != 'undefined') { %> value="<%= student.roll %>" <% } %> name="roll" class="form-control">
+
+				<label for="batch_of">Batch Of</label>
+				<input type="text" id="batch_of" <% if(typeof student != 'undefined') { %> value="<%= student.batch_of %>" <% } %> name="batch_of" class="form-control">
+
+				<label for="batch_of">Department</label>
+				<select class="form-control" id="department" name="departmentId">
+					
+					<% departments.forEach((department) => { %>
+						<option value="<%= department.id %>" <% if (typeof student != 'undefined') { %> <% if (student.Department.id == department.id) { %> selected <% } %> <% } %>><%= department.name %></option>
+					<% }) %>
+
+				</select>
+
+				<br>
+
+				<div class="text-center">
+					<input type="submit" value="Save" class="btn btn-success">
+				</div>
+
+			</form>
+
+		</div>
 	</div>
 	
 <% include ../partials/footer %>

@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcryptjs');
+
 var HomeController = require('../controllers/HomeController');
 var CourseController = require('../controllers/CourseController');
 var GroupController = require('../controllers/GroupController');
@@ -10,8 +14,61 @@ var StudentController = require('../controllers/StudentController');
 var ChartController = require('../controllers/ChartController');
 var AssessmentController = require('../controllers/AssessmentController');
 var ReportsController = require('../controllers/ReportsController');
+var UserController = require('../controllers/UserController');
+
+var User = require('../models').User;
 
 router.get('/', HomeController.Index);
+
+// User
+router.get('/register', UserController.Register);
+router.post('/register', UserController.Register);
+
+passport.use(new LocalStrategy(
+	function(username, password, done) {
+		User.findOne({
+          where: {
+            username: username
+          }
+        }).then((user) => {
+			if (!user) {
+				return done(null, false, { message: 'Invalid username' });
+			}
+
+			bcrypt.compare(password, user.password).then((isMatch) => {
+	          if (isMatch) {
+				return done(null, user);
+			  } else {
+			  	console.log(isMatch);
+				return done(null, false, { message: 'Invalid password' });
+			  }
+	        });
+        });
+	}
+));
+
+passport.serializeUser(function(user, done) {
+	done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.findById(id).then((user) => {
+		done(null, user);
+	}).catch((err) => {
+		done(err, user);
+	})
+});
+
+router.get('/login', UserController.Login);
+router.post('/login', 
+	passport.authenticate('local', {
+		successRedirect: '/', 
+		failureRedirect: '/login', 
+		failureFlash: true, 
+		successFlash: true
+	}),
+	UserController.Login);
+router.get('/logout', UserController.Logout);
 
 // Courses
 router.get('/courses', CourseController.Index);

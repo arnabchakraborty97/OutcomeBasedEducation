@@ -1,84 +1,81 @@
 <% include ../partials/header %>
 
-	<div class="container">
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center"><%= title %></h2>
+		</div>
+		<div class="card-body">
 
-		<div class="card">
-			<div class="card-header">
-				<h2 class="text-center"><%= title %></h2>
-			</div>
-			<div class="card-body">
+			<form method="POST" action="/assessments/create" class="row">
+				<label for="course_id" class="col-form-label col-md-1 offset-md-3">Course: </label>
+				<select id="course_id" name="course_id" class="form-control col-md-3">
+					<% courses.forEach((course) => { %>
+						<option value="<%= course.id %>"><%= course.name %></option>
+					<% }) %>
+				</select>
 
-				<form method="POST" action="/assessments/create" class="row">
-					<label for="course_id" class="col-form-label col-md-1 offset-md-3">Course: </label>
-					<select id="course_id" name="course_id" class="form-control col-md-3">
-						<% courses.forEach((course) => { %>
-							<option value="<%= course.id %>"><%= course.name %></option>
-						<% }) %>
-					</select>
+				<input type="submit" value="Submit" class="btn btn-success col-md-2 ml-2">
 
-					<input type="submit" value="Submit" class="btn btn-success col-md-2 ml-2">
+			</form>
+		</div>
+	</div>
+
+	<br>
+
+	<div class="card">
+
+		<div class="card-body">
+
+			<% if(typeof course_selected !== 'undefined') { %>
+			
+				<form <% if (typeof assessment == 'undefined') { %> action="/assessments" <% } else { %> action="/assessments/<%= assessment.id %>?_method=PUT" <% } %> method="POST">
+
+					<input type="hidden" name="course" value="<%= course_selected.id %>" readonly>
+					<div class="text-center"><div class="col-md-3 btn btn-lg btn-info"><%= course_selected.name %></div></div><br>
+					<div class="row">
+						<label for="student" class="col-form-label col-md-1 offset-md-4">Student: </label>
+						<select id="student" name="student" class="form-control col-md-3">
+							<% students.forEach((student) => { %>
+								<option value="<%= student.id %>"><%= student.name %></option>
+							<% }) %>
+						</select>
+					</div>
+
+					<br>
+					
+					<table class="table table-bordered">
+						<thead class="thead-dark">
+							<tr>
+								<th>Group</th>
+								<th>Tool</th>
+								<th>Program Outcome</th>
+								<th>Score (On a scale of 1-4)</th>
+							</tr>
+						</thead>
+						<tbody class="table-light">
+							<% charts.forEach((chart) => { %>
+								<% if (chart.fulfil !== '') { %>
+
+									<tr>
+										<td><%= chart.Tool.Group.name %></td>
+										<td><%= chart.Tool.name %></td>
+										<td><%= chart.ProgramOutcome.name %> - <%= chart.fulfil %></td>
+										<td><input type="text" name="score" class="form-control"></td>
+									</tr>
+								<% } %>
+							<% }) %>
+						</tbody>
+					</table>
+
+					<div class="text-center">
+						<input type="submit" value="Save" class="btn btn-success">
+					</div>
 
 				</form>
-			</div>
+			<% } %>
+
 		</div>
-
-		<br>
-
-		<div class="card">
-
-			<div class="card-body">
-
-				<% if(typeof course_selected !== 'undefined') { %>
-				
-					<form <% if (typeof assessment == 'undefined') { %> action="/assessments" <% } else { %> action="/assessments/<%= assessment.id %>?_method=PUT" <% } %> method="POST">
-
-						<input type="hidden" name="course" value="<%= course_selected.id %>" readonly>
-						<div class="text-center"><div class="col-md-3 btn btn-lg btn-info"><%= course_selected.name %></div></div><br>
-						<div class="row">
-							<label for="student" class="col-form-label col-md-1 offset-md-4">Student: </label>
-							<select id="student" name="student" class="form-control col-md-3">
-								<% students.forEach((student) => { %>
-									<option value="<%= student.id %>"><%= student.name %></option>
-								<% }) %>
-							</select>
-						</div>
-
-						<br>
-						
-						<table class="table table-bordered">
-							<thead class="thead-dark">
-								<tr>
-									<th>Group</th>
-									<th>Tool</th>
-									<th>Program Outcome</th>
-									<th>Score (On a scale of 1-4)</th>
-								</tr>
-							</thead>
-							<tbody class="table-light">
-								<% charts.forEach((chart) => { %>
-									<% if (chart.fulfil !== '') { %>
-
-										<tr>
-											<td><%= chart.Tool.Group.name %></td>
-											<td><%= chart.Tool.name %></td>
-											<td><%= chart.ProgramOutcome.name %> - <%= chart.fulfil %></td>
-											<td><input type="text" name="score" class="form-control"></td>
-										</tr>
-									<% } %>
-								<% }) %>
-							</tbody>
-						</table>
-
-						<div class="text-center">
-							<input type="submit" value="Save" class="btn btn-success">
-						</div>
-
-					</form>
-				<% } %>
-
-			</div>
-		</div>
-
 	</div>
+
 	
 <% include ../partials/footer %>
