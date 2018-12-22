@@ -18,7 +18,7 @@ var UserController = require('../controllers/UserController');
 
 var User = require('../models').User;
 
-router.get('/', HomeController.Index);
+router.get('/', checkAuth, HomeController.Index);
 
 // User
 router.get('/register', UserController.Register);
@@ -70,72 +70,85 @@ router.post('/login',
 	UserController.Login);
 router.get('/logout', UserController.Logout);
 
+// CheckAuth middleware
+function checkAuth(req, res, next) {
+  if (!req.session.user && !res.locals.user) {
+    return res.redirect('/login');
+  } else {
+    next();
+  }
+}
+
+
 // Courses
-router.get('/courses', CourseController.Index);
-router.get('/courses/create', CourseController.Create);
-router.post('/courses', CourseController.Store);
-router.get('/courses/:id/edit', CourseController.Edit);
-router.put('/courses/:id', CourseController.Update);
-router.delete('/courses/:id', CourseController.Destroy);
+router.get('/courses', checkAuth, CourseController.Index);
+router.get('/courses/create', checkAuth, CourseController.Create);
+router.post('/courses', checkAuth, CourseController.Store);
+router.get('/courses/:id/edit', checkAuth, CourseController.Edit);
+router.put('/courses/:id', checkAuth, CourseController.Update);
+router.delete('/courses/:id', checkAuth, CourseController.Destroy);
 
 // Groups
-router.get('/groups', GroupController.Index);
-router.get('/groups/create', GroupController.Create);
-router.post('/groups', GroupController.Store);
-router.get('/groups/:id/edit', GroupController.Edit);
-router.put('/groups/:id', GroupController.Update);
-router.delete('/groups/:id', GroupController.Destroy);
+router.get('/groups', checkAuth, GroupController.Index);
+router.get('/groups/create', checkAuth, GroupController.Create);
+router.post('/groups', checkAuth, GroupController.Store);
+router.get('/groups/:id/edit', checkAuth, GroupController.Edit);
+router.put('/groups/:id', checkAuth, GroupController.Update);
+router.delete('/groups/:id', checkAuth, GroupController.Destroy);
 
 // Tools
-router.get('/tools', ToolController.Index);
-router.get('/tools/create', ToolController.Create);
-router.post('/tools', ToolController.Store);
-router.get('/tools/:id/edit', ToolController.Edit);
-router.put('/tools/:id', ToolController.Update);
-router.delete('/tools/:id', ToolController.Destroy);
+router.get('/tools', checkAuth, ToolController.Index);
+router.get('/tools/create', checkAuth, ToolController.Create);
+router.post('/tools', checkAuth, ToolController.Store);
+router.get('/tools/:id/edit', checkAuth, ToolController.Edit);
+router.put('/tools/:id', checkAuth, ToolController.Update);
+router.delete('/tools/:id', checkAuth, ToolController.Destroy);
 
 // Program Outcomes
-router.get('/programoutcomes', ProgramOutcomeController.Index);
-router.get('/programoutcomes/create', ProgramOutcomeController.Create);
-router.post('/programoutcomes', ProgramOutcomeController.Store);
-router.get('/programoutcomes/:id/edit', ProgramOutcomeController.Edit);
-router.put('/programoutcomes/:id', ProgramOutcomeController.Update);
-router.delete('/programoutcomes/:id', ProgramOutcomeController.Destroy);
+router.get('/programoutcomes', checkAuth, ProgramOutcomeController.Index);
+router.get('/programoutcomes/create', checkAuth, ProgramOutcomeController.Create);
+router.post('/programoutcomes', checkAuth, ProgramOutcomeController.Store);
+router.get('/programoutcomes/:id/edit', checkAuth, ProgramOutcomeController.Edit);
+router.put('/programoutcomes/:id', checkAuth, ProgramOutcomeController.Update);
+router.delete('/programoutcomes/:id', checkAuth, ProgramOutcomeController.Destroy);
 
 // Department
-router.get('/departments', DepartmentController.Index);
-router.get('/departments/create', DepartmentController.Create);
-router.post('/departments', DepartmentController.Store);
-router.get('/departments/:id/edit', DepartmentController.Edit);
-router.put('/departments/:id', DepartmentController.Update);
-router.delete('/departments/:id', DepartmentController.Destroy);
+router.get('/departments', checkAuth, DepartmentController.Index);
+router.get('/departments/create', checkAuth, DepartmentController.Create);
+router.post('/departments', checkAuth, DepartmentController.Store);
+router.get('/departments/:id/edit', checkAuth, DepartmentController.Edit);
+router.put('/departments/:id', checkAuth, DepartmentController.Update);
+router.delete('/departments/:id', checkAuth, DepartmentController.Destroy);
 
 // Students
-router.get('/students', StudentController.Index);
-router.get('/students/create', StudentController.Create);
-router.post('/students', StudentController.Store);
-router.get('/students/:id/edit', StudentController.Edit);
-router.put('/students/:id', StudentController.Update);
-router.delete('/students/:id', StudentController.Destroy);
+router.get('/students', checkAuth, StudentController.Index);
+router.get('/students/create', checkAuth, StudentController.Create);
+router.post('/students', checkAuth, StudentController.Store);
+router.get('/students/:id/edit', checkAuth, StudentController.Edit);
+router.put('/students/:id', checkAuth, StudentController.Update);
+router.delete('/students/:id', checkAuth, StudentController.Destroy);
 
 // Charts
-router.get('/charts', ChartController.Index);
-router.post('/charts/create', ChartController.Create);
-router.post('/charts', ChartController.Store);
-router.get('/charts/:id/edit', ChartController.Edit);
-router.put('/charts/:id', ChartController.Update);
-router.delete('/charts/:id', ChartController.Destroy);
+router.get('/charts', checkAuth, ChartController.Index);
+router.post('/charts/create', checkAuth, ChartController.Create);
+router.post('/charts', checkAuth, ChartController.Store);
+router.get('/charts/:id/edit', checkAuth, ChartController.Edit);
+router.put('/charts/:id', checkAuth, ChartController.Update);
+router.delete('/charts/:id', checkAuth, ChartController.Destroy);
 
 // Assessment
-router.get('/assessments', AssessmentController.Index);
-router.get('/assessments/create', AssessmentController.Create);
-router.post('/assessments/create', AssessmentController.Create);
-router.post('/assessments', AssessmentController.Store);
-router.get('/assessments/:id/edit', AssessmentController.Edit);
-router.put('/assessments/:id', AssessmentController.Update);
-router.delete('/assessments/:id', AssessmentController.Destroy);
+router.get('/assessments', checkAuth, AssessmentController.Index);
+router.get('/assessments/create', checkAuth, AssessmentController.Create);
+router.post('/assessments/create', checkAuth, AssessmentController.Create);
+router.post('/assessments', checkAuth, AssessmentController.Store);
+router.get('/assessments/:id/edit', checkAuth, AssessmentController.Edit);
+router.put('/assessments/:id', checkAuth, AssessmentController.Update);
+router.delete('/assessments/:id', checkAuth, AssessmentController.Destroy);
 
-router.get('/reports', ReportsController.Index);
-router.post('/reports', ReportsController.Index);
+// Reports
+router.get('/reports/all', checkAuth, ReportsController.All);
+router.post('/reports/all', checkAuth, ReportsController.All);
+router.get('/reports/studentwise', checkAuth, ReportsController.StudentWise);
+router.post('/reports/studentwise', checkAuth, ReportsController.StudentWise);
 
 module.exports = router;

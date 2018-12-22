@@ -1,0 +1,110 @@
+<% include ../partials/header %>
+		
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center"><%= title %></h2>
+		</div>
+		<div class="card-body">
+			
+			<form method="POST" action="/reports/all" class="form-group">
+				
+				<div class="row">
+					<label for="student" class="col-form-label col-md-2 text-md-right">Batch: </label>
+					<select class="form-control col-md-3" id="batch" name="batch">
+						<option value="2016-2020" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2016-2020") { %> selected <% } %> <% } %>>2016-2020</option>
+						<option value="2017-2021" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2017-2021") { %> selected <% } %> <% } %>>2017-2021</option>
+						<option value="2018-2022" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2018-2022") { %> selected <% } %> <% } %>>2018-2022</option>
+						<option value="2019-2023" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2019-2023") { %> selected <% } %> <% } %>>2019-2023</option>
+						<option value="2020-2024" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2020-2024") { %> selected <% } %> <% } %>>2020-2024</option>
+						<option value="2021-2025" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2021-2025") { %> selected <% } %> <% } %>>2021-2025</option>
+					</select>
+
+					<label for="semester" class="col-form-label col-md-2 text-md-right">Semester: </label>
+					<select class="form-control col-md-3" id="semester" name="semester">
+						<option value="1" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 1) { %> selected <% } %> <% } %>>1st</option>
+						<option value="2" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 2) { %> selected <% } %> <% } %>>2nd</option>
+						<option value="3" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 3) { %> selected <% } %> <% } %>>3rd</option>
+						<option value="4" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 4) { %> selected <% } %> <% } %>>4th</option>
+						<option value="5" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 5) { %> selected <% } %> <% } %>>5th</option>
+						<option value="6" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 6) { %> selected <% } %> <% } %>>6th</option>
+						<option value="7" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 7) { %> selected <% } %> <% } %>>7th</option>
+						<option value="8" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 8) { %> selected <% } %> <% } %>>8th</option>
+					</select>
+				</div>
+
+				<br>
+
+				<input type="submit" value="Submit" class="btn btn-success col-md-2 offset-md-5">
+
+			</form>
+
+		</div>
+	</div>
+
+
+	<% if(typeof semester_selected !== 'undefined') { %>
+
+		<table class="table table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Student Name</th>
+					<th>PO1</th>
+					<th>PO2</th>
+					<th>PO3</th>
+					<th>PO4</th>
+					<th>PO5</th>
+					<th>PO6</th>
+					<th>PO7</th>
+					<th>PO8</th>
+					<th>PO9</th>
+					<th>PO10</th>
+					<th>PO11</th>
+					<th>Average</th>
+				</tr>
+			</thead>
+			<tbody class="tbody-light">
+				
+				<% for(var i = 0; i < students.length; i++) { %>
+
+					<tr>
+						<td><%= students[i].name %></td>
+						<td><%= P1[i] %></td>
+						<td><%= P2[i] %></td>
+						<td><%= P3[i] %></td>
+						<td><%= P4[i] %></td>
+						<td><%= P5[i] %></td>
+						<td><%= P6[i] %></td>
+						<td><%= P7[i] %></td>
+						<td><%= P8[i] %></td>
+						<td><%= P9[i] %></td>
+						<td><%= P10[i] %></td>
+						<td><%= P11[i] %></td>
+						<td><%= avg[i] %></td>
+					</tr>
+
+				<% } %>
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td>Average</td>
+					<td><%= P1a %></td>
+					<td><%= P2a %></td>
+					<td><%= P3a %></td>
+					<td><%= P4a %></td>
+					<td><%= P5a %></td>
+					<td><%= P6a %></td>
+					<td><%= P7a %></td>
+					<td><%= P8a %></td>
+					<td><%= P9a %></td>
+					<td><%= P10a %></td>
+					<td><%= P11a %></td>
+				</tr>
+			</tfoot>
+		</table>
+
+	<% } %>
+
+
+
+<% include ../partials/footer %>
