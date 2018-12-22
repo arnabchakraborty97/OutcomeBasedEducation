@@ -63,7 +63,7 @@ module.exports.Index = function(req, res) {
 						PO9 += parseInt(assessment.score);
 					else if (assessment.programoutcomeId == '10')
 						PO10 += parseInt(assessment.score);
-					else if (assessment.programoutcomeId == '1')
+					else if (assessment.programoutcomeId == '11')
 						PO11 += parseInt(assessment.score);
 
 				})
