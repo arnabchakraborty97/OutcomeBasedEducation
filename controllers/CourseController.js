@@ -1,5 +1,7 @@
+// import model
 var Course = require('../models').Course;
 
+// Render all courses in index
 module.exports.Index = function(req, res) {
 
 	Course.findAll().then(courses => {
@@ -8,12 +10,15 @@ module.exports.Index = function(req, res) {
 
 }
 
+
+// Render create page
 module.exports.Create = function(req, res) {
 
 	res.render('courses/createOrEdit', { title: 'Create Course' });
 
 }
 
+// Store data from user and create instances of Course
 module.exports.Store = function(req, res) {
 
 	Course.create(req.body).then(function () {
@@ -22,6 +27,7 @@ module.exports.Store = function(req, res) {
 
 }
 
+// Render create based on course_id supplied
 module.exports.Edit = function(req, res) {
 
 	Course.findById(req.params.id).then(function(course) {
@@ -34,6 +40,7 @@ module.exports.Edit = function(req, res) {
 	});
 }
 
+// Update the particular instnace with new data
 module.exports.Update = function(req, res) {
 
 	Course.findOne({
@@ -46,6 +53,7 @@ module.exports.Update = function(req, res) {
 
 }
 
+// Delete particular instance of Course
 module.exports.Destroy = function(req, res) {
 
 	Course.destroy({

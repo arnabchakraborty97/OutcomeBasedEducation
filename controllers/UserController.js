@@ -1,13 +1,18 @@
+// import model
 var User = require('../models').User;
+
+// import bcrypt to hash password
 var bcrypt = require('bcryptjs');
 
+// Register function
 module.exports.Register = function(req, res) {
 
+	// render register form on get
 	if (req.method == 'GET') {
 		res.render('users/register', {
 			title: 'Register'
 		});
-	} else if (req.method == 'POST') {
+	} else if (req.method == 'POST') {	
 
 		// Validation
 		req.checkBody('name', 'Name is required.').notEmpty();
@@ -19,6 +24,7 @@ module.exports.Register = function(req, res) {
 
 		var errors = req.validationErrors();
 
+		// throw error if there is any else create user instance
 		if (errors) {
 			res.render('users/register', {
 				title: 'Register',
@@ -26,6 +32,7 @@ module.exports.Register = function(req, res) {
 			})
 		} else {
 			
+			// Please refer to bcryptjs documentation
 			bcrypt.genSalt(10, (err, salt) => {
 				bcrypt.hash(req.body.password, salt, (err, hash) => {
 					User.create({
@@ -37,6 +44,7 @@ module.exports.Register = function(req, res) {
 				})
 			})
 
+			// Flash message
 			req.flash('success_msg', 'You are registered and can now login');
 
 			res.redirect('/login');
@@ -46,17 +54,20 @@ module.exports.Register = function(req, res) {
 	}
 }
 
+
+// Login function
 module.exports.Login = function(req, res) {
 
-	if (req.method == 'GET') {
+	if (req.method == 'GET') {		// Render form
 		res.render('users/login', {
 			title: 'Login'
 		});
-	} else if(req.method == 'POST') {
+	} else if(req.method == 'POST') {		// This isn't in work
 		res.send('yes');
 	}
 }
 
+// log the user out and flash message
 module.exports.Logout = function(req, res) {
 	req.logout();
 

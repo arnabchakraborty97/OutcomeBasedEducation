@@ -1,6 +1,8 @@
+// import models
 var Student = require('../models').Student;
 var Department = require('../models').Department;
 
+// Render all student models in index
 module.exports.Index = function(req, res) {
 
 	Student.findAll({
@@ -9,18 +11,21 @@ module.exports.Index = function(req, res) {
 
 }
 
+// Render create page
 module.exports.Create = function(req, res) {
 
 	Department.findAll().then((departments) => res.render('students/createOrEdit', { title: 'Create Student', departments: departments } ))
 
 }
 
+// create instance of student model
 module.exports.Store = function(req, res) {
 
 	Student.create({...req.body, departmentId: req.body.departmentId}).then(() => res.redirect('/students'))
 
 }
 
+// Render create page with a particular student instance
 module.exports.Edit = function(req, res) {
 
 	Student.findById(req.params.id, {
@@ -37,6 +42,7 @@ module.exports.Edit = function(req, res) {
 	
 }
 
+// Update the particular Student model
 module.exports.Update = function(req, res) {
 
 	Student.findById(req.params.id).then((department) => 
@@ -48,6 +54,8 @@ module.exports.Update = function(req, res) {
 
 }
 
+
+// Delete particular student model
 module.exports.Destroy = function(req, res) {
 
 	Student.destroy({

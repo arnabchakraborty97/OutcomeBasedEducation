@@ -1,3 +1,5 @@
+// Importing all models
+
 var Chart = require('../models').Chart;
 var Course = require('../models').Course;
 var Group = require('../models').Group;
@@ -7,6 +9,7 @@ var Student = require('../models').Student;
 var Assessment = require('../models').Assessment;
 
 
+// Render all assessments(including relation models) in index
 module.exports.Index = function(req, res) {
 
 	Assessment.findAll({
@@ -20,6 +23,10 @@ module.exports.Index = function(req, res) {
 
 }
 
+
+// Handle both get and post in same controller
+// Accept course_id to find corressponding chart.
+// Render chart and accept score in create
 module.exports.Create = function(req, res) {
 
 	if (req.method == 'GET') {
@@ -62,6 +69,8 @@ module.exports.Create = function(req, res) {
 
 }
 
+
+// Load the corressponding chart and make new assessment records based on score input
 module.exports.Store = function(req, res) {
 
 	Course.findById(req.body.course).then((course) => {
@@ -122,6 +131,8 @@ module.exports.Update = function(req, res) {
 	
 
 }
+
+// Delete assessment
 
 module.exports.Destroy = function(req, res) {
 

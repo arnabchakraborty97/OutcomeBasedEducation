@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
+
+// Passport imports
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcryptjs');
 
+// controller imports
 var HomeController = require('../controllers/HomeController');
 var CourseController = require('../controllers/CourseController');
 var GroupController = require('../controllers/GroupController');
@@ -16,14 +19,17 @@ var AssessmentController = require('../controllers/AssessmentController');
 var ReportsController = require('../controllers/ReportsController');
 var UserController = require('../controllers/UserController');
 
+// User model import
 var User = require('../models').User;
 
+// Index page of whole project
 router.get('/', checkAuth, HomeController.Index);
 
 // User
 router.get('/register', UserController.Register);
 router.post('/register', UserController.Register);
 
+// local strategy to be used in POST login form
 passport.use(new LocalStrategy(
 	function(username, password, done) {
 		User.findOne({
@@ -47,10 +53,14 @@ passport.use(new LocalStrategy(
 	}
 ));
 
+// user.id is set in session to retrieve later on every request
 passport.serializeUser(function(user, done) {
 	done(null, user.id);
 });
 
+// user.id used to check if user is logged in
+// The fetched object is attached to the request object as req.user
+// https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
 passport.deserializeUser(function(id, done) {
 	User.findById(id).then((user) => {
 		done(null, user);

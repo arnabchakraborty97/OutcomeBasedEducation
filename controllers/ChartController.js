@@ -1,9 +1,12 @@
+// Importing models
 var Chart = require('../models').Chart;
 var Course = require('../models').Course;
 var Group = require('../models').Group;
 var Tool = require('../models').Tool;
 var ProgramOutcome = require('../models').ProgramOutcome;
 
+
+// Rendering chart model in index with all related models
 module.exports.Index = function(req, res) {
 
 	Chart.findAll({
@@ -27,6 +30,8 @@ module.exports.Index = function(req, res) {
 
 }
 
+
+// Accept course_id and render group and tools model of that course in create
 module.exports.Create = function(req, res) {
 
 	Course.findById(req.body.course_id, {
@@ -56,6 +61,7 @@ module.exports.Create = function(req, res) {
 
 }
 
+// Accept fulfil array from user to create multiple instances of Chart in one go
 module.exports.Store = function(req, res) {
 
 	for (var i = 0; i < req.body.course.length; i++) {
@@ -69,9 +75,13 @@ module.exports.Store = function(req, res) {
 
 	}
 
+	// Don't need callback as it will redirect only after everything has been taken care of
+
 	res.redirect('/charts')
 }
 
+
+// Incomplete
 module.exports.Edit = function(req, res) {
 
 	Chart.findById(req.params.id, {
@@ -102,6 +112,7 @@ module.exports.Update = function(req, res) {
 
 }
 
+// Destroy a Chart instance
 module.exports.Destroy = function(req, res) {
 
 	Chart.destroy({

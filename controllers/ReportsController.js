@@ -1,3 +1,4 @@
+// Import models
 var Chart = require('../models').Chart;
 var Course = require('../models').Course;
 var Group = require('../models').Group;
@@ -8,6 +9,15 @@ var Assessment = require('../models').Assessment;
 var Department = require('../models').Department;
 
 
+// Function to handle 'Report for all' requests
+// Render the form page on get request
+// Calling createP on multiple student instances 
+// and calculating their who PO scores along 
+// with average by using the semester supplied
+// Pxa are verical averages for each PO (can surely be done in a better way)
+// createP uses a callback function 
+// in order to go through all assessment 
+// instances before next statements are executed
 module.exports.All = function(req, res) {
 
 	if (req.method == 'GET') {
@@ -24,6 +34,9 @@ module.exports.All = function(req, res) {
 			}
 		}).then((students) => {
 
+			// Sending all students of the batch and supplied semester value to createP
+			// to create PO arrays with total PO scores of each student along with
+			// their horizontal averages(avg)
 			createP(students, req.body.semester, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg) => {
 				
 				var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
@@ -83,6 +96,7 @@ module.exports.All = function(req, res) {
 				}
 				P11a /= P11.length
 
+				// Render the reports/all page with all of the data in context
 				res.render('reports/all', {
 					title: 'All Reports',
 					students: students,
@@ -121,8 +135,10 @@ module.exports.All = function(req, res) {
 
 }
 
+// Takes in student instances and semester to calculate the PO scores of each student along with their averages
 var createP = function(students, semester, callback) {
 
+	// Declaring empty arrays
 	const P1 = [], P2 = [], P3 = [], P4 = [], P5 = [], P6 = [], P7 = [], P8 = [], P9 = [], P10 = [], P11 = [], avg = [];
 
 	for (var i = 0; i < students.length; i++) {
@@ -172,6 +188,9 @@ var createP = function(students, semester, callback) {
 
 			})
 
+
+			// Pushing the data of a student into the PO arrays using the assessment model
+			// to sum up their POs throughout the concerned semester
 			P1.push(PO1)
 			P2.push(PO2)
 			P3.push(PO3)
@@ -184,11 +203,18 @@ var createP = function(students, semester, callback) {
 			P10.push(PO10)
 			P11.push(PO11)
 
+			// calculating horizontal average of particular student and pushing it in avg array
 			var a = Math.round(((PO1 + PO2 + PO3 + PO4 + PO5 + PO6 + PO7 + PO8 + PO9 + PO10 + PO11)/11) * 100) / 100 
 			avg.push(a)
 
+
+			// Once the array has been filled with all the data of supplied students
+			// we call the callback function
+			// callback helps us to wait till the control is done with the whole thing
 			if (P1.length == students.length)
 				callback(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg);
+
+			// Note: Callback parameters should be matched in the function on invoking it
 
 
 
@@ -197,7 +223,12 @@ var createP = function(students, semester, callback) {
 	}
 }
 
-
+// Function to handle requests for individual reports
+// On get requet, render the studentwise page with all the student models to populate the select field
+// On post request, take the student and semester data
+// and go through all assessment records of the concerned student in the given semester
+// Add all POs to get total of them
+// Render the studentwise page with the data in context
 module.exports.StudentWise = function(req, res) {
 
 	if (req.method == 'GET') {

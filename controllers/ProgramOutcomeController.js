@@ -1,5 +1,7 @@
+// import models
 var ProgramOutcome = require('../models').ProgramOutcome;
 
+// Render all POs in index
 module.exports.Index = function(req, res) {
 
 	ProgramOutcome.findAll().then((programoutcomes) => 
@@ -8,12 +10,14 @@ module.exports.Index = function(req, res) {
 	
 }
 
+// Render create page
 module.exports.Create = function(req, res) {
 
 	res.render('programoutcomes/createOrEdit', { title: 'Create Program Outcome' });
 
 }
 
+// Create instances of PO model
 module.exports.Store = function(req, res) {
 
 	ProgramOutcome.create(req.body).then(() => 
@@ -22,6 +26,7 @@ module.exports.Store = function(req, res) {
 
 }
 
+// render create page with particular PO_id
 module.exports.Edit = function(req, res) {
 
 	ProgramOutcome.findById(req.params.id).then((programoutcome) => 
@@ -30,6 +35,7 @@ module.exports.Edit = function(req, res) {
 	
 }
 
+// Update the PO in question
 module.exports.Update = function(req, res) {
 
 	ProgramOutcome.findById(req.params.id).then((programoutcome) => {
@@ -38,6 +44,8 @@ module.exports.Update = function(req, res) {
 
 }
 
+
+// Destroy particular instance of PO
 module.exports.Destroy = function(req, res) {
 
 	ProgramOutcome.destroy({

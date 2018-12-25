@@ -1,6 +1,8 @@
+// import models
 var Course = require('../models').Course;
 var Group = require('../models').Group;
 
+// Render all Group models in index with related models
 module.exports.Index = function(req, res) {
 
 	Group.findAll({
@@ -10,6 +12,8 @@ module.exports.Index = function(req, res) {
 
 }
 
+
+// Render create page
 module.exports.Create = function(req, res) {
 
 	Course.findAll().then((courses) => {
@@ -18,6 +22,7 @@ module.exports.Create = function(req, res) {
 
 }
 
+// Create instances of Group bsaed on supplied data and link to Course
 module.exports.Store = function(req, res) {
 
 	Group.create({
@@ -27,6 +32,8 @@ module.exports.Store = function(req, res) {
 
 }
 
+
+// Render create page based on Group Id supplied
 module.exports.Edit = function(req, res) {
 
 	Course.findAll().then((courses) => {
@@ -38,6 +45,7 @@ module.exports.Edit = function(req, res) {
 	
 }
 
+// Update the particular group model
 module.exports.Update = function(req, res) {
 
 	Group.findById(req.params.id).then((group) => {
@@ -51,6 +59,8 @@ module.exports.Update = function(req, res) {
 
 }
 
+
+// Destroy the particular Group model
 module.exports.Destroy = function(req, res) {
 
 	Group.destroy({
