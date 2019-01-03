@@ -2,6 +2,10 @@
 	
 	<% if(Object.keys(groups).length) { %>
 
+		<div class="text-center">
+			<a href="/groups/create" class="btn btn-success">Add Group</a>
+		</div>
+
 		<table class="table table-bordered">
 			<thead class="thead-dark">
 				<tr>
@@ -18,7 +22,7 @@
 					<tr>
 						<td><%= group.id %></td>
 						<td><%= group.name %></td>
-						<td><%= group.Course.name %></td>
+						<td><%= group.Course.code %> - <%= group.Course.name %></td>
 						<td>
 							<a class="btn btn-sm btn-secondary" href="/groups/<%= group.id %>/edit">Edit</a>
 						</td>
@@ -37,10 +41,6 @@
 	<% } else { %>
 		Nothing to show
 	<% } %>
-
-	<div class="text-center">
-		<a href="/groups/create" class="btn btn-success">Add Group</a>
-	</div>
 
 
 <% include ../partials/footer %>

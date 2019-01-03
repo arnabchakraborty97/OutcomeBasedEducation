@@ -10,7 +10,7 @@
 				<label for="course_id" class="col-form-label col-md-1 offset-md-3">Course: </label>
 				<select id="course_id" name="course_id" class="form-control col-md-3">
 					<% courses.forEach((course) => { %>
-						<option value="<%= course.id %>" <% if (typeof course_selected !== 'undefined') { %> <% if(course_selected.id == course.id) { %> selected <% } %> <% } %>><%= course.name %></option>
+						<option value="<%= course.id %>" <% if (typeof course_selected !== 'undefined') { %> <% if(course_selected.id == course.id) { %> selected <% } %> <% } %>><%= course.code %> - <%= course.name %></option>
 					<% }) %>
 				</select>
 
@@ -36,7 +36,7 @@
 						<label for="student" class="col-form-label col-md-1 offset-md-4">Student: </label>
 						<select id="student" name="student" class="form-control col-md-3">
 							<% students.forEach((student) => { %>
-								<option value="<%= student.id %>"><%= student.name %></option>
+								<option value="<%= student.id %>"><%= student.roll %> - <%= student.name %></option>
 							<% }) %>
 						</select>
 					</div>

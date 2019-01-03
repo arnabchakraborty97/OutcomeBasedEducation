@@ -47,6 +47,7 @@
 		<table class="table table-bordered">
 			<thead class="thead-dark">
 				<tr>
+					<th>Roll No.</th>
 					<th>Student Name</th>
 					<th>PO1</th>
 					<th>PO2</th>
@@ -67,6 +68,7 @@
 				<% for(var i = 0; i < students.length; i++) { %>
 
 					<tr>
+						<td><%= students[i].roll %></td>
 						<td><%= students[i].name %></td>
 						<td><%= P1[i] %></td>
 						<td><%= P2[i] %></td>
@@ -87,6 +89,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
+					<td></td>
 					<td>Average</td>
 					<td><%= P1a %></td>
 					<td><%= P2a %></td>
@@ -99,6 +102,7 @@
 					<td><%= P9a %></td>
 					<td><%= P10a %></td>
 					<td><%= P11a %></td>
+					<td></td>
 				</tr>
 			</tfoot>
 		</table>
