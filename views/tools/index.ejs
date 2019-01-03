@@ -2,6 +2,11 @@
 		
 	<% if(Object.keys(tools).length) { %>
 
+		<div class="text-center">
+			<a href="/tools/create" class="btn btn-success">Add Tool</a>
+		</div>
+		<br>
+
 		<table class="table table-bordered">
 			<thead class="thead-dark">
 				<tr>
@@ -39,9 +44,5 @@
 	<% } else { %>
 		Nothing to show
 	<% } %>
-
-	<div class="text-center">
-		<a href="/tools/create" class="btn btn-success">Add Tool</a>
-	</div>
 
 <% include ../partials/footer %>

@@ -1,5 +1,10 @@
 <% include ../partials/header %>
-		
+
+
+	<div class="text-center">
+		<a href="/students/create" class="btn btn-success">Add Student</a>
+	</div>
+	<br>
 	<% if(Object.keys(students).length) { %>
 
 		<table class="table table-bordered">
@@ -42,8 +47,5 @@
 		Nothing to show
 	<% } %>
 
-	<div class="text-center">
-		<a href="/students/create" class="btn btn-success">Add Student</a>
-	</div>
 
 <% include ../partials/footer %>

@@ -70,3 +70,6 @@ typings/
 # vuepress build output
 .vuepress/dist
 
+#config
+config/*
+
