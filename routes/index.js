@@ -156,9 +156,12 @@ router.put('/assessments/:id', checkAuth, AssessmentController.Update);
 router.delete('/assessments/:id', checkAuth, AssessmentController.Destroy);
 
 // Reports
-router.get('/reports/all', checkAuth, ReportsController.All);
-router.post('/reports/all', checkAuth, ReportsController.All);
-router.get('/reports/studentwise', checkAuth, ReportsController.StudentWise);
-router.post('/reports/studentwise', checkAuth, ReportsController.StudentWise);
+router.get('/reports/all', ReportsController.All);
+router.post('/reports/all', ReportsController.All);
+router.get('/reports/studentwise', ReportsController.StudentWise);
+router.post('/reports/studentwise', ReportsController.StudentWise);
+router.get('/reports/coursewise', ReportsController.CourseWise);
+router.post('/reports/coursewise', ReportsController.CourseWise);
+router.post('/reports/allCSV', ReportsController.allCSV);
 
 module.exports = router;
