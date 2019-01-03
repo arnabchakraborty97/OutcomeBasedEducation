@@ -8,9 +8,7 @@ var Student = require('../models').Student;
 var Assessment = require('../models').Assessment;
 var Department = require('../models').Department;
 
-// Import fast csv
-var fs = require('fs');
-var csv = require('fast-csv');
+
 
 
 // Function to handle 'Report for all' requests
@@ -633,19 +631,7 @@ module.exports.allCSV = function (req, res) {
 			// res.send(context)
 
 			// Create CSV
-			var ws = fs.createWriteStream('my.csv');
-
-			csv.
-				write([
-
-					["a1", "c1"],
-					["b2", "c2"],
-					["c2", "d2"]
-
-				], {headers: true})
-				.pipe(ws);
-
-			res.redirect('/reports/all');
+			
 
 		})
 
