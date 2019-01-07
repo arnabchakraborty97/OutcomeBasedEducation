@@ -1,0 +1,92 @@
+<% include ../partials/header %>
+		
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center"><%= title %></h2>
+		</div>
+		<div class="card-body">
+			
+			<form method="POST" action="/reports/powise" class="form-group">
+				
+				<div class="row">
+					<label for="student" class="col-form-label col-md-1 text-md-right">Batch: </label>
+					<select class="form-control col-md-2" id="batch" name="batch">
+						<option value="2016-2020" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2016-2020") { %> selected <% } %> <% } %>>2016-2020</option>
+						<option value="2017-2021" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2017-2021") { %> selected <% } %> <% } %>>2017-2021</option>
+						<option value="2018-2022" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2018-2022") { %> selected <% } %> <% } %>>2018-2022</option>
+						<option value="2019-2023" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2019-2023") { %> selected <% } %> <% } %>>2019-2023</option>
+						<option value="2020-2024" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2020-2024") { %> selected <% } %> <% } %>>2020-2024</option>
+						<option value="2021-2025" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2021-2025") { %> selected <% } %> <% } %>>2021-2025</option>
+					</select>
+
+					<label for="semester" class="col-form-label col-md-2 text-md-right">Semester: </label>
+					<select class="form-control col-md-2" id="semester" name="semester">
+						<option value="1" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 1) { %> selected <% } %> <% } %>>1st</option>
+						<option value="2" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 2) { %> selected <% } %> <% } %>>2nd</option>
+						<option value="3" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 3) { %> selected <% } %> <% } %>>3rd</option>
+						<option value="4" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 4) { %> selected <% } %> <% } %>>4th</option>
+						<option value="5" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 5) { %> selected <% } %> <% } %>>5th</option>
+						<option value="6" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 6) { %> selected <% } %> <% } %>>6th</option>
+						<option value="7" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 7) { %> selected <% } %> <% } %>>7th</option>
+						<option value="8" <% if (typeof semester_selected !== 'undefined') { %> <% if(semester_selected == 8) { %> selected <% } %> <% } %>>8th</option>
+					</select>
+
+					<label for="PO" class="col-form-label col-md-2 text-md-right">PO</label>
+					<select class="form-control col-md-2" id="PO" name="PO">
+						<% programoutcomes.forEach((po) => { %>
+
+							<option value="<%= po.id %>" <% if (typeof PO_selected !== 'undefined') { %> <% if(PO_selected == po.id) { %> selected <% } %> <% } %>><%= po.name %></option>
+
+						<% }) %>
+					</select>
+				</div>
+
+				<br>
+
+				<input type="submit" value="Submit" class="btn btn-success col-md-2 offset-md-5">
+
+			</form>
+
+		</div>
+	</div>
+
+	<% if(typeof courses !== 'undefined') { %>
+
+		<table class="table table-bordered">
+			<thead class="thead-dark">
+				<tr>
+					<th>Student</th>
+					<% courses.forEach((course) => { %>
+
+						<th><%= course.name %></th>
+
+					<% }) %>
+					<th>Average</th>
+				</tr>
+			</thead>
+			<tbody class="tbody-light">
+				
+					
+				<% for (var i = 0; i < students.length; i++) { %>
+
+					<tr>
+
+						<td><%= students[i].name %></td>
+						<% for (var j = 0; j < courses.length; j++) { %>
+
+							<td><%= p[i][j] %></td>
+
+						<% } %>
+						<td><%= avg[i] %></td>
+
+
+					</tr>
+
+				<% } %>
+
+			</tbody>
+		</table>
+
+	<% } %>
+
+<% include ../partials/footer %>
