@@ -41,94 +41,121 @@ module.exports.All = function(req, res) {
 			// Sending all students of the batch and supplied semester value to createP
 			// to create PO arrays with total PO scores of each student along with
 			// their horizontal averages(avg)
-			createP(students, req.body.semester, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg) => {
-				
-				var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+			createP(students, req.body.semester, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11) => {
 
-				for(var i = 0; i < P1.length; i++) {
-					P1a += P1[i];
-				}
-				P1a /= P1.length
+				createTotalWeight(req.body.semester, (P) => {
 
-				for(var i = 0; i < P2.length; i++) {
-					P2a += P2[i];
-				}
-				P2a /= P2.length
+					var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+					var avg = [];
 
-				for(var i = 0; i < P3.length; i++) {
-					P3a += P3[i];
-				}
-				P3a /= P3.length
 
-				for(var i = 0; i < P4.length; i++) {
-					P4a += P4[i];
-				}
-				P4a /= P4.length
+					for(var i = 0; i < P1.length; i++) {
+						P1[i] = Math.round(((P1[i] * 100)/P[0]) * 100)/100;
+						P1a += P1[i];
+					}
+					P1a = Math.round((P1a/P1.length) * 100)/100;
 
-				for(var i = 0; i < P5.length; i++) {
-					P5a += P5[i];
-				}
-				P5a /= P5.length
+					for(var i = 0; i < P2.length; i++) {
+						P2[i] = Math.round(((P2[i] * 100)/P[1]) * 100)/100;
+						P2a += P2[i];
+					}
+					P2a = Math.round((P2a/P2.length) * 100)/100;
 
-				for(var i = 0; i < P6.length; i++) {
-					P6a += P6[i];
-				}
-				P6a /= P6.length
+					for(var i = 0; i < P3.length; i++) {
+						P3[i] = Math.round(((P3[i] * 100)/P[2]) * 100)/100;
+						P3a += P3[i];
+					}
+					P3a = Math.round((P3a/P3.length) * 100)/100;
 
-				for(var i = 0; i < P7.length; i++) {
-					P7a += P7[i];
-				}
-				P7a /= P7.length
+					for(var i = 0; i < P4.length; i++) {
+						P4[i] = Math.round(((P4[i] * 100)/P[3]) * 100)/100;
+						P4a += P4[i];
+					}
+					P4a = Math.round((P4a/P4.length) * 100)/100;
 
-				for(var i = 0; i < P8.length; i++) {
-					P8a += P8[i];
-				}
-				P8a /= P8.length
-				
-				for(var i = 0; i < P9.length; i++) {
-					P9a += P9[i];
-				}
-				P9a /= P9.length
+					for(var i = 0; i < P5.length; i++) {
+						P5[i] = Math.round(((P5[i] * 100)/P[4]) * 100)/100;
+						P5a += P5[i];
+					}
+					P5a = Math.round((P5a/P5.length) * 100)/100;
 
-				for(var i = 0; i < P10.length; i++) {
-					P10a += P10[i];
-				}
-				P10a /= P10.length
 
-				for(var i = 0; i < P11.length; i++) {
-					P11a += P11[i];
-				}
-				P11a /= P11.length
+					for(var i = 0; i < P6.length; i++) {
+						P6[i] = Math.round(((P6[i] * 100)/P[5]) * 100)/100;
+						P6a += P6[i];
+					}
+					P6a = Math.round((P6a/P6.length) * 100)/100;
 
-				// Render the reports/all page with all of the data in context
-				res.render('reports/all', {
-					title: 'All Reports',
-					students: students,
-					P1: P1,
-					P2: P2,
-					P3: P3,
-					P4: P4,
-					P5: P5,
-					P6: P6,
-					P7: P7,
-					P8: P8,
-					P9: P9,
-					P10: P10,
-					P11: P11,
-					avg: avg,
-					P1a: P1a,
-					P2a: P2a,
-					P3a: P3a,
-					P4a: P4a,
-					P5a: P5a,
-					P6a: P6a,
-					P7a: P7a,
-					P8a: P8a,
-					P9a: P9a,
-					P10a: P10a,
-					P11a: P11a,
-					batch_selected: req.body.batch,
-					semester_selected: req.body.semester
+					for(var i = 0; i < P7.length; i++) {
+						P7[i] = Math.round(((P7[i] * 100)/P[6]) * 100)/100;
+						P7a += P7[i];
+					}
+					P7a = Math.round((P7a/P7.length) * 100)/100;
+
+					for(var i = 0; i < P8.length; i++) {
+						P8[i] = Math.round(((P8[i] * 100)/P[7]) * 100)/100;
+						P8a += P8[i];
+					}
+					P8a = Math.round((P8a/P8.length) * 100)/100;
+					
+					for(var i = 0; i < P9.length; i++) {
+						P9[i] = Math.round(((P9[i] * 100)/P[8]) * 100)/100;
+						P9a += P9[i];
+					}
+					P9a = Math.round((P9a/P9.length) * 100)/100;
+
+					for(var i = 0; i < P10.length; i++) {
+						P10[i] = Math.round(((P10[i] * 100)/P[9]) * 100)/100;
+						P10a += P10[i];
+					}
+					P10a = Math.round((P10a/P10.length) * 100)/100;
+
+					for(var i = 0; i < P11.length; i++) {
+						P11[i] = Math.round(((P11[i] * 100)/P[10]) * 100)/100;
+						P11a += P11[i];
+					}
+					P11a = Math.round((P11a/P11.length) * 100)/100;
+
+					// Horizontal Average in percentage
+					for (var i = 0; i < students.length; i++) {
+						var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/11;
+						avg.push(Math.round((a) * 100)/100);
+					}
+
+
+
+					// Render the reports/all page with all of the data in context
+					res.render('reports/all', {
+						title: 'All Reports',
+						students: students,
+						P1: P1,
+						P2: P2,
+						P3: P3,
+						P4: P4,
+						P5: P5,
+						P6: P6,
+						P7: P7,
+						P8: P8,
+						P9: P9,
+						P10: P10,
+						P11: P11,
+						avg: avg,
+						P1a: P1a,
+						P2a: P2a,
+						P3a: P3a,
+						P4a: P4a,
+						P5a: P5a,
+						P6a: P6a,
+						P7a: P7a,
+						P8a: P8a,
+						P9a: P9a,
+						P10a: P10a,
+						P11a: P11a,
+						P: P,
+						batch_selected: req.body.batch,
+						semester_selected: req.body.semester
+					})
+
 				})
 
 			})
@@ -136,6 +163,86 @@ module.exports.All = function(req, res) {
 		})
 
 	}
+
+}
+
+// To calculate total weightage in the header
+var createTotalWeight = function(semester, callback) {
+
+	Course.findAll({
+		where: {
+			semester: semester
+		}
+	}).then((courses) => {
+
+		ProgramOutcome.findAll()
+		.then((programoutcomes) => {
+
+			var P = [];
+
+			programoutcomes.forEach((programoutcome) => {
+
+				createPOWeight(courses, programoutcome.id, (weight) => {
+					P.push(weight);
+
+					if (P.length == programoutcomes.length)
+						callback(P);
+				})
+
+			})
+
+		})
+
+	})
+
+}
+
+var createPOWeight = function(courses, PO, callback) {
+
+	var weight = 0;
+	var coursecount = 0;
+
+	courses.forEach((course) => {
+
+		Chart.findAll({
+			where: {
+				courseId: course.id,
+				programoutcomeId: PO
+			}
+		}).then((charts) => {
+
+			courseWeight(charts, (w) => {
+				weight += w;
+				coursecount++;
+
+				if (courses.length == coursecount)
+					callback(weight);
+
+			})
+
+		})
+
+	})
+
+}
+
+var courseWeight = function(charts, callback) {
+
+	var weight = 0;
+	var chartcount = 0;
+	charts.forEach((chart) => {
+		if (chart.fulfil == "S")
+			weight += 4;
+		else if (chart.fulfil == "M")
+			weight += (0.6 * 4);
+		else if (chart.fulfil == "W")
+			weight += (0.2 * 4);
+		chartcount++;
+
+		if (chartcount == charts.length)
+			callback(weight);
+
+	})
 
 }
 
@@ -208,15 +315,15 @@ var createP = function(students, semester, callback) {
 			P11.push(PO11)
 
 			// calculating horizontal average of particular student and pushing it in avg array
-			var a = Math.round(((PO1 + PO2 + PO3 + PO4 + PO5 + PO6 + PO7 + PO8 + PO9 + PO10 + PO11)/11) * 100) / 100 
-			avg.push(a)
+			// var a = Math.round(((PO1 + PO2 + PO3 + PO4 + PO5 + PO6 + PO7 + PO8 + PO9 + PO10 + PO11)/11) * 100) / 100 
+			// avg.push(a)
 
 
 			// Once the array has been filled with all the data of supplied students
 			// we call the callback function
 			// callback helps us to wait till the control is done with the whole thing
 			if (P1.length == students.length)
-				callback(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg);
+				callback(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11);
 
 			// Note: Callback parameters should be matched in the function on invoking it
 
@@ -390,15 +497,15 @@ var createCourseWise = function(students, course, callback) {
 			P11.push(PO11)
 
 			// calculating horizontal average of particular student and pushing it in avg array
-			var a = Math.round(((PO1 + PO2 + PO3 + PO4 + PO5 + PO6 + PO7 + PO8 + PO9 + PO10 + PO11)/11) * 100) / 100 
-			avg.push(a)
+			// var a = Math.round(((PO1 + PO2 + PO3 + PO4 + PO5 + PO6 + PO7 + PO8 + PO9 + PO10 + PO11)/11) * 100) / 100 
+			// avg.push(a)
 
 
 			// Once the array has been filled with all the data of supplied students
 			// we call the callback function
 			// callback helps us to wait till the control is done with the whole thing
 			if (P1.length == students.length)
-				callback(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg);
+				callback(P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11);
 
 			// Note: Callback parameters should be matched in the function on invoking it
 
@@ -428,104 +535,169 @@ module.exports.CourseWise = function(req, res) {
 			}
 		}).then((students) => {
 			
-			createCourseWise(students, req.body.course, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg) => {
-				
-				var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+			createCourseWise(students, req.body.course, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11) => {
 
-				for(var i = 0; i < P1.length; i++) {
-					P1a += P1[i];
-				}
-				P1a /= P1.length
+				createCoursePOWeight(req.body.course, (P) => {
 
-				for(var i = 0; i < P2.length; i++) {
-					P2a += P2[i];
-				}
-				P2a /= P2.length
+					var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+					var avg = [];
 
-				for(var i = 0; i < P3.length; i++) {
-					P3a += P3[i];
-				}
-				P3a /= P3.length
 
-				for(var i = 0; i < P4.length; i++) {
-					P4a += P4[i];
-				}
-				P4a /= P4.length
+					for(var i = 0; i < P1.length; i++) {
+						if (P1[i] != 0)
+							P1[i] = Math.round(((P1[i] * 100)/P[0]) * 100)/100;
+						P1a += P1[i];
+					}
+					P1a = Math.round((P1a/P1.length) * 100)/100;
 
-				for(var i = 0; i < P5.length; i++) {
-					P5a += P5[i];
-				}
-				P5a /= P5.length
+					for(var i = 0; i < P2.length; i++) {
+						if (P2[i] != 0)
+							P2[i] = Math.round(((P2[i] * 100)/P[1]) * 100)/100;
+						P2a += P2[i];
+					}
+					P2a = Math.round((P2a/P2.length) * 100)/100;
 
-				for(var i = 0; i < P6.length; i++) {
-					P6a += P6[i];
-				}
-				P6a /= P6.length
+					for(var i = 0; i < P3.length; i++) {
+						if (P3[i] != 0)
+							P3[i] = Math.round(((P3[i] * 100)/P[2]) * 100)/100;
+						P3a += P3[i];
+					}
+					P3a = Math.round((P3a/P3.length) * 100)/100;
 
-				for(var i = 0; i < P7.length; i++) {
-					P7a += P7[i];
-				}
-				P7a /= P7.length
+					for(var i = 0; i < P4.length; i++) {
+						if (P4[i] != 0)
+							P4[i] = Math.round(((P4[i] * 100)/P[3]) * 100)/100;
+						P4a += P4[i];
+					}
+					P4a = Math.round((P4a/P4.length) * 100)/100;
 
-				for(var i = 0; i < P8.length; i++) {
-					P8a += P8[i];
-				}
-				P8a /= P8.length
-				
-				for(var i = 0; i < P9.length; i++) {
-					P9a += P9[i];
-				}
-				P9a /= P9.length
+					for(var i = 0; i < P5.length; i++) {
+						if (P5[i] != 0)
+							P5[i] = Math.round(((P5[i] * 100)/P[4]) * 100)/100;
+						P5a += P5[i];
+					}
+					P5a = Math.round((P5a/P5.length) * 100)/100;
 
-				for(var i = 0; i < P10.length; i++) {
-					P10a += P10[i];
-				}
-				P10a /= P10.length
 
-				for(var i = 0; i < P11.length; i++) {
-					P11a += P11[i];
-				}
-				P11a /= P11.length
+					for(var i = 0; i < P6.length; i++) {
+						if (P6[i] != 0)
+							P6[i] = Math.round(((P6[i] * 100)/P[5]) * 100)/100;
+						P6a += P6[i];
+					}
+					P6a = Math.round((P6a/P6.length) * 100)/100;
 
-				// Render the reports/all page with all of the data in context
-				Course.findAll().then((courses) => {
-					res.render('reports/coursewise', {
-						title: 'Course Wise Reports',
-						students: students,
-						P1: P1,
-						P2: P2,
-						P3: P3,
-						P4: P4,
-						P5: P5,
-						P6: P6,
-						P7: P7,
-						P8: P8,
-						P9: P9,
-						P10: P10,
-						P11: P11,
-						avg: avg,
-						P1a: P1a,
-						P2a: P2a,
-						P3a: P3a,
-						P4a: P4a,
-						P5a: P5a,
-						P6a: P6a,
-						P7a: P7a,
-						P8a: P8a,
-						P9a: P9a,
-						P10a: P10a,
-						P11a: P11a,
-						courses: courses,
-						batch_selected: req.body.batch,
-						course_selected: req.body.course
+					for(var i = 0; i < P7.length; i++) {
+						if (P7[i] != 0)
+							P7[i] = Math.round(((P7[i] * 100)/P[6]) * 100)/100;
+						P7a += P7[i];
+					}
+					P7a = Math.round((P7a/P7.length) * 100)/100;
+
+					for(var i = 0; i < P8.length; i++) {
+						if (P8[i] != 0)
+							P8[i] = Math.round(((P8[i] * 100)/P[7]) * 100)/100;
+						P8a += P8[i];
+					}
+					P8a = Math.round((P8a/P8.length) * 100)/100;
+					
+					for(var i = 0; i < P9.length; i++) {
+						if (P9[i] != 0)
+							P9[i] = Math.round(((P9[i] * 100)/P[8]) * 100)/100;
+						P9a += P9[i];
+					}
+					P9a = Math.round((P9a/P9.length) * 100)/100;
+
+					for(var i = 0; i < P10.length; i++) {
+						if (P10[i] != 0)
+							P10[i] = Math.round(((P10[i] * 100)/P[9]) * 100)/100;
+						P10a += P10[i];
+					}
+					P10a = Math.round((P10a/P10.length) * 100)/100;
+
+					for(var i = 0; i < P11.length; i++) {
+						if (P11[i] != 0)
+							P11[i] = Math.round(((P11[i] * 100)/P[10]) * 100)/100;
+						P11a += P11[i];
+					}
+					P11a = Math.round((P11a/P11.length) * 100)/100;
+
+					// Horizontal Average in percentage
+					for (var i = 0; i < students.length; i++) {
+						var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/11;
+						avg.push(Math.round((a) * 100)/100);
+					}
+
+					// Render the reports/all page with all of the data in context
+					Course.findAll().then((courses) => {
+						res.render('reports/coursewise', {
+							title: 'Course Wise Reports',
+							students: students,
+							P1: P1,
+							P2: P2,
+							P3: P3,
+							P4: P4,
+							P5: P5,
+							P6: P6,
+							P7: P7,
+							P8: P8,
+							P9: P9,
+							P10: P10,
+							P11: P11,
+							avg: avg,
+							P1a: P1a,
+							P2a: P2a,
+							P3a: P3a,
+							P4a: P4a,
+							P5a: P5a,
+							P6a: P6a,
+							P7a: P7a,
+							P8a: P8a,
+							P9a: P9a,
+							P10a: P10a,
+							P11a: P11a,
+							P: P,
+							courses: courses,
+							batch_selected: req.body.batch,
+							course_selected: req.body.course
+						})
 					})
 				})
-				
 
 			})
 		})
 
 	}
+
+}
+
+var createCoursePOWeight = function(course, callback) {
+
+	var P = [];
+
+	ProgramOutcome.findAll()
+	.then((programoutcomes) => {
+
+		programoutcomes.forEach((programoutcome) => {
+
+			Chart.findAll({
+				where: {
+					courseId: course,
+					programoutcomeId: programoutcome.id
+				}
+			}).then((charts) => {
+
+				courseWeight(charts, (w) => {
+					P.push(w);
+
+					if (P.length == programoutcomes.length)
+						callback(P);
+				})
+
+			})
+
+		})
+
+	})
 
 }
 
@@ -681,199 +853,91 @@ module.exports.allCSV = function (req, res) {
 		// Sending all students of the batch and supplied semester value to createP
 		// to create PO arrays with total PO scores of each student along with
 		// their horizontal averages(avg)
-		createP(students, req.body.semester, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg) => {
+		createP(students, req.body.semester, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11) => {
 			
-			var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+			createTotalWeight(req.body.semester, (P) => {
 
-			for(var i = 0; i < P1.length; i++) {
-				P1a += P1[i];
-			}
-			P1a /= P1.length
-
-			for(var i = 0; i < P2.length; i++) {
-				P2a += P2[i];
-			}
-			P2a /= P2.length
-
-			for(var i = 0; i < P3.length; i++) {
-				P3a += P3[i];
-			}
-			P3a /= P3.length
-
-			for(var i = 0; i < P4.length; i++) {
-				P4a += P4[i];
-			}
-			P4a /= P4.length
-
-			for(var i = 0; i < P5.length; i++) {
-				P5a += P5[i];
-			}
-			P5a /= P5.length
-
-			for(var i = 0; i < P6.length; i++) {
-				P6a += P6[i];
-			}
-			P6a /= P6.length
-
-			for(var i = 0; i < P7.length; i++) {
-				P7a += P7[i];
-			}
-			P7a /= P7.length
-
-			for(var i = 0; i < P8.length; i++) {
-				P8a += P8[i];
-			}
-			P8a /= P8.length
-			
-			for(var i = 0; i < P9.length; i++) {
-				P9a += P9[i];
-			}
-			P9a /= P9.length
-			
-			for(var i = 0; i < P10.length; i++) {
-				P10a += P10[i];
-			}
-			P10a /= P10.length
-			
-			for(var i = 0; i < P11.length; i++) {
-				P11a += P11[i];
-			}
-			P11a /= P11.length
-
-			//console.log(students.length);
-			
-			// Create CSV
-			
-			var data = [];
-			i = 0;
-			students.forEach(function(s){
-				var p = {};
-				//console.log(s.roll + " " + s.name);
-				p["Roll No"] = s.roll;
-				p["Name"] = s.name;
-				p["PO1"] = P1[i];
-				p["PO2"] = P2[i];
-				p["PO3"] = P3[i];
-				p["PO4"] = P4[i];
-				p["PO5"] = P5[i];
-				p["PO6"] = P6[i];
-				p["PO7"] = P7[i];
-				p["PO8"] = P8[i];
-				p["PO9"] = P9[i];
-				p["PO10"] = P10[i];
-				p["PO11"] = P11[i];
-				p["Average"] = avg[i];
-				data.push(p);
-				i++;
-			});
-			
-			var p = {};
-			p["Roll No"] = "";
-			p["Name"] = "Average";
-			p["PO1"] = P1a;
-			p["PO2"] = P2a;
-			p["PO3"] = P3a;
-			p["PO4"] = P4a;
-			p["PO5"] = P5a;
-			p["PO6"] = P6a;
-			p["PO7"] = P7a;
-			p["PO8"] = P8a;
-			p["PO9"] = P9a;
-			p["PO10"] = P10a;
-			p["PO11"] = P11a;
-			data.push(p);
-			
-			const json2csvParser = new Json2csvParser({ fields });
-			const csv = json2csvParser.parse(data);
-			
-			//console.log(csv);
-
-			var path='./public/'+req.body.batch+'_'+req.body.semester+'sem_'+Date.now()+'.csv'; 
-			fs.writeFile(path, csv, function(err,data) {
-			if (err) {throw err;}
-				else{
-					res.download(path); //Send download headers.
-				}
-			});
-			
-
-		})
-
-	})
-
-}
-
-module.exports.courseCSV = function (req, res) {
-	
-	const fields = ['Roll No', 'Name', 'PO1', 'PO2', 'PO3', 'PO4', 'PO5', 'PO6', 'PO7', 'PO8', 'PO9', 'PO10', 'PO11', 'Average'];
-
-		Student.findAll({
-			where: {
-				batch_of: req.body.batch
-			}
-		}).then((students) => {
-			
-			createCourseWise(students, req.body.course, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, avg) => {
-				
 				var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+				var avg = [];
+
 
 				for(var i = 0; i < P1.length; i++) {
+					P1[i] = Math.round(((P1[i] * 100)/P[0]) * 100)/100;
 					P1a += P1[i];
 				}
-				P1a /= P1.length
+				P1a = Math.round((P1a/P1.length) * 100)/100;
 
 				for(var i = 0; i < P2.length; i++) {
+					P2[i] = Math.round(((P2[i] * 100)/P[1]) * 100)/100;
 					P2a += P2[i];
 				}
-				P2a /= P2.length
+				P2a = Math.round((P2a/P2.length) * 100)/100;
 
 				for(var i = 0; i < P3.length; i++) {
+					P3[i] = Math.round(((P3[i] * 100)/P[2]) * 100)/100;
 					P3a += P3[i];
 				}
-				P3a /= P3.length
+				P3a = Math.round((P3a/P3.length) * 100)/100;
 
 				for(var i = 0; i < P4.length; i++) {
+					P4[i] = Math.round(((P4[i] * 100)/P[3]) * 100)/100;
 					P4a += P4[i];
 				}
-				P4a /= P4.length
+				P4a = Math.round((P4a/P4.length) * 100)/100;
 
 				for(var i = 0; i < P5.length; i++) {
+					P5[i] = Math.round(((P5[i] * 100)/P[4]) * 100)/100;
 					P5a += P5[i];
 				}
-				P5a /= P5.length
+				P5a = Math.round((P5a/P5.length) * 100)/100;
+
 
 				for(var i = 0; i < P6.length; i++) {
+					P6[i] = Math.round(((P6[i] * 100)/P[5]) * 100)/100;
 					P6a += P6[i];
 				}
-				P6a /= P6.length
+				P6a = Math.round((P6a/P6.length) * 100)/100;
 
 				for(var i = 0; i < P7.length; i++) {
+					P7[i] = Math.round(((P7[i] * 100)/P[6]) * 100)/100;
 					P7a += P7[i];
 				}
-				P7a /= P7.length
+				P7a = Math.round((P7a/P7.length) * 100)/100;
 
 				for(var i = 0; i < P8.length; i++) {
+					P8[i] = Math.round(((P8[i] * 100)/P[7]) * 100)/100;
 					P8a += P8[i];
 				}
-				P8a /= P8.length
+				P8a = Math.round((P8a/P8.length) * 100)/100;
 				
 				for(var i = 0; i < P9.length; i++) {
+					P9[i] = Math.round(((P9[i] * 100)/P[8]) * 100)/100;
 					P9a += P9[i];
 				}
-				P9a /= P9.length
+				P9a = Math.round((P9a/P9.length) * 100)/100;
 
 				for(var i = 0; i < P10.length; i++) {
+					P10[i] = Math.round(((P10[i] * 100)/P[9]) * 100)/100;
 					P10a += P10[i];
 				}
-				P10a /= P10.length
+				P10a = Math.round((P10a/P10.length) * 100)/100;
 
 				for(var i = 0; i < P11.length; i++) {
+					P11[i] = Math.round(((P11[i] * 100)/P[10]) * 100)/100;
 					P11a += P11[i];
 				}
-				P11a /= P11.length
+				P11a = Math.round((P11a/P11.length) * 100)/100;
 
-				//Create CSV
-						
+				// Horizontal Average in percentage
+				for (var i = 0; i < students.length; i++) {
+					var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/11;
+					avg.push(Math.round((a) * 100)/100);
+				}
+
+				//console.log(students.length);
+				
+				// Create CSV
+				
 				var data = [];
 				i = 0;
 				students.forEach(function(s){
@@ -918,13 +982,178 @@ module.exports.courseCSV = function (req, res) {
 				
 				//console.log(csv);
 
-				var path='./public/'+req.body.batch+'_'+req.body.course+'course_'+Date.now()+'.csv'; 
+				var path='./public/storage/'+req.body.batch+'_'+req.body.semester+'sem_'+Date.now()+'.csv'; 
 				fs.writeFile(path, csv, function(err,data) {
 				if (err) {throw err;}
 					else{
 						res.download(path); //Send download headers.
 					}
 				});
+
+			})
+
+		})
+
+	})
+
+}
+
+module.exports.courseCSV = function (req, res) {
+	
+	const fields = ['Roll No', 'Name', 'PO1', 'PO2', 'PO3', 'PO4', 'PO5', 'PO6', 'PO7', 'PO8', 'PO9', 'PO10', 'PO11', 'Average'];
+
+		Student.findAll({
+			where: {
+				batch_of: req.body.batch
+			}
+		}).then((students) => {
+			
+			createCourseWise(students, req.body.course, (P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11) => {
+				
+				createCoursePOWeight(req.body.course, (P) => {
+
+					var P1a = 0, P2a = 0, P3a = 0, P4a = 0, P5a = 0, P6a = 0, P7a = 0, P8a = 0, P9a = 0, P10a = 0, P11a = 0;
+					var avg = [];
+
+
+					for(var i = 0; i < P1.length; i++) {
+						if (P1[i] != 0)
+							P1[i] = Math.round(((P1[i] * 100)/P[0]) * 100)/100;
+						P1a += P1[i];
+					}
+					P1a = Math.round((P1a/P1.length) * 100)/100;
+
+					for(var i = 0; i < P2.length; i++) {
+						if (P2[i] != 0)
+							P2[i] = Math.round(((P2[i] * 100)/P[1]) * 100)/100;
+						P2a += P2[i];
+					}
+					P2a = Math.round((P2a/P2.length) * 100)/100;
+
+					for(var i = 0; i < P3.length; i++) {
+						if (P3[i] != 0)
+							P3[i] = Math.round(((P3[i] * 100)/P[2]) * 100)/100;
+						P3a += P3[i];
+					}
+					P3a = Math.round((P3a/P3.length) * 100)/100;
+
+					for(var i = 0; i < P4.length; i++) {
+						if (P4[i] != 0)
+							P4[i] = Math.round(((P4[i] * 100)/P[3]) * 100)/100;
+						P4a += P4[i];
+					}
+					P4a = Math.round((P4a/P4.length) * 100)/100;
+
+					for(var i = 0; i < P5.length; i++) {
+						if (P5[i] != 0)
+							P5[i] = Math.round(((P5[i] * 100)/P[4]) * 100)/100;
+						P5a += P5[i];
+					}
+					P5a = Math.round((P5a/P5.length) * 100)/100;
+
+
+					for(var i = 0; i < P6.length; i++) {
+						if (P6[i] != 0)
+							P6[i] = Math.round(((P6[i] * 100)/P[5]) * 100)/100;
+						P6a += P6[i];
+					}
+					P6a = Math.round((P6a/P6.length) * 100)/100;
+
+					for(var i = 0; i < P7.length; i++) {
+						if (P7[i] != 0)
+							P7[i] = Math.round(((P7[i] * 100)/P[6]) * 100)/100;
+						P7a += P7[i];
+					}
+					P7a = Math.round((P7a/P7.length) * 100)/100;
+
+					for(var i = 0; i < P8.length; i++) {
+						if (P8[i] != 0)
+							P8[i] = Math.round(((P8[i] * 100)/P[7]) * 100)/100;
+						P8a += P8[i];
+					}
+					P8a = Math.round((P8a/P8.length) * 100)/100;
+					
+					for(var i = 0; i < P9.length; i++) {
+						if (P9[i] != 0)
+							P9[i] = Math.round(((P9[i] * 100)/P[8]) * 100)/100;
+						P9a += P9[i];
+					}
+					P9a = Math.round((P9a/P9.length) * 100)/100;
+
+					for(var i = 0; i < P10.length; i++) {
+						if (P10[i] != 0)
+							P10[i] = Math.round(((P10[i] * 100)/P[9]) * 100)/100;
+						P10a += P10[i];
+					}
+					P10a = Math.round((P10a/P10.length) * 100)/100;
+
+					for(var i = 0; i < P11.length; i++) {
+						if (P11[i] != 0)
+							P11[i] = Math.round(((P11[i] * 100)/P[10]) * 100)/100;
+						P11a += P11[i];
+					}
+					P11a = Math.round((P11a/P11.length) * 100)/100;
+
+					// Horizontal Average in percentage
+					for (var i = 0; i < students.length; i++) {
+						var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/11;
+						avg.push(Math.round((a) * 100)/100);
+					}
+
+					//Create CSV
+							
+					var data = [];
+					i = 0;
+					students.forEach(function(s){
+						var p = {};
+						//console.log(s.roll + " " + s.name);
+						p["Roll No"] = s.roll;
+						p["Name"] = s.name;
+						p["PO1"] = P1[i];
+						p["PO2"] = P2[i];
+						p["PO3"] = P3[i];
+						p["PO4"] = P4[i];
+						p["PO5"] = P5[i];
+						p["PO6"] = P6[i];
+						p["PO7"] = P7[i];
+						p["PO8"] = P8[i];
+						p["PO9"] = P9[i];
+						p["PO10"] = P10[i];
+						p["PO11"] = P11[i];
+						p["Average"] = avg[i];
+						data.push(p);
+						i++;
+					});
+					
+					var p = {};
+					p["Roll No"] = "";
+					p["Name"] = "Average";
+					p["PO1"] = P1a;
+					p["PO2"] = P2a;
+					p["PO3"] = P3a;
+					p["PO4"] = P4a;
+					p["PO5"] = P5a;
+					p["PO6"] = P6a;
+					p["PO7"] = P7a;
+					p["PO8"] = P8a;
+					p["PO9"] = P9a;
+					p["PO10"] = P10a;
+					p["PO11"] = P11a;
+					data.push(p);
+					
+					const json2csvParser = new Json2csvParser({ fields });
+					const csv = json2csvParser.parse(data);
+					
+					//console.log(csv);
+
+					var path='./public/storage/'+req.body.batch+'_'+req.body.course+'course_'+Date.now()+'.csv'; 
+					fs.writeFile(path, csv, function(err,data) {
+					if (err) {throw err;}
+						else{
+							res.download(path); //Send download headers.
+						}
+					});
+				})
 
 			})
 		
