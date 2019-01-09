@@ -74,4 +74,5 @@ typings/
 config/*
 
 # storage 
-public/storage
+public/storage/*
+!public/storage/storage.txt

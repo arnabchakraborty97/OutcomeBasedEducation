@@ -56,12 +56,13 @@
 			<thead class="thead-dark">
 				<tr>
 					<th>Student</th>
-					<% courses.forEach((course) => { %>
+					<% for(var i = 0; i < courses.length; i++) { %>
 
-						<th><%= course.name %></th>
+						<th><%= courses[i].name %> (<%= c[i] %>)</th>
 
-					<% }) %>
-					<th>Average</th>
+					<% } %>
+					<th>Total (<%= totalCoursesWeight %>)</th>
+					<th>Average(%)</th>
 				</tr>
 			</thead>
 			<tbody class="tbody-light">
@@ -77,6 +78,7 @@
 							<td><%= p[i][j] %></td>
 
 						<% } %>
+						<td><%= total[i] %></td>
 						<td><%= avg[i] %></td>
 
 

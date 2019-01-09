@@ -731,22 +731,38 @@ module.exports.POWise = function(req, res) {
 
 				var course_length = Object.keys(courses).length;
 
-				createPOWise(students, courses, req.body.PO, (p, avg) => {
+				createPOWise(students, courses, req.body.PO, (p, total) => {
 
-					
-					ProgramOutcome.findAll()
-					.then((programoutcomes) => {
-						res.render('reports/powise', {
-							title: 'Program Outcome Wise',
-							programoutcomes: programoutcomes,
-							p: p,
-							avg: avg,
-							courses: courses,
-							students: students,
-							PO_selected: req.body.PO,
-							semester_selected: req.body.semester,
-							batch_selected: req.body.batch
+					createCoursePOWeight(courses, req.body.PO, (c) => {
+
+						// Total Course Weight with a particular PO
+						var totalCoursesWeight = 0;
+						for (var i = 0; i < c.length; i++) {
+							totalCoursesWeight += c[i];
+						}
+
+						var avg = [];
+						for (var i = 0; i < total.length; i++) 
+							avg[i] = Math.round((total[i]/totalCoursesWeight) * 100 * 100)/100;
+
+						ProgramOutcome.findAll()
+						.then((programoutcomes) => {
+							res.render('reports/powise', {
+								title: 'Program Outcome Wise',
+								programoutcomes: programoutcomes,
+								p: p,
+								c: c,
+								total: total,
+								avg: avg,
+								courses: courses,
+								students: students,
+								PO_selected: req.body.PO,
+								semester_selected: req.body.semester,
+								batch_selected: req.body.batch,
+								totalCoursesWeight: totalCoursesWeight
+							})
 						})
+
 					})
 
 				})
@@ -759,47 +775,59 @@ module.exports.POWise = function(req, res) {
 
 }
 
-var createPOWise = function(students, courses, PO, callback) {
+var createCoursePOWeight = function(courses, PO, callback) {
 
-	// Declaring empty arrays
-	const p = [], avg = [];
+	var c = [];
 
-	for (var i = 0; i < students.length; i++) {
+	courses.forEach((course) => {
 
-		createPOWiseSub(students[i], courses, PO, (c, average) => {
+		Chart.findAll({
+			where: {
+				courseId: course.id,
+				programoutcomeId: PO
+			}
+		}).then((charts) => {
 
-			avg.push(average/(courses.length));
-			p.push(c);
+			courseWeight(charts, (weight) => {
 
-			if (p.length == students.length)
-				callback(p, avg);
+				c.push(weight);
+
+				if (c.length == courses.length)
+					callback(c);
+
+			})
 
 		})
 
-		
+	})
+
+}
+
+var createPOWise = function(students, courses, PO, callback) {
+
+	// Declaring empty arrays
+	const p = [], t = [];
+
+	for (var i = 0; i < students.length; i++) {
+
+		createPOWiseSub(students[i], courses, PO, (c, total) => {
+
+			t.push(total);
+			p.push(c);
+
+			if (p.length == students.length)
+				callback(p, t);
+
+		})
 
 	}
-	
-
-	// const msg = []
-
-	// for (var i = 0; i < students.length; i++) {
-	// 	const m = [];
-	// 	for (var j = 0; j < courses.length; j++) {
-	// 		m.push('YES')
-	// 	}
-	// 	msg.push(m);
-	// }
-
-	// if (i == students.length)
-	// 	callback(msg);
 
 }
 
 var createPOWiseSub = function(student, courses, PO, callback) {
 
 	const c = [];
-	var average = 0;
+	var total = 0;
 
 	for (var j = 0; j < courses.length; j++) {
 
@@ -827,11 +855,11 @@ var createPOWiseSub = function(student, courses, PO, callback) {
 				score += assessment.score;
 			})
 
-			average += score;
+			total += score;
 			c.push(score);
 
 			if (c.length == courses.length)
-				callback(c, average);
+				callback(c, total);
 
 		})
 
