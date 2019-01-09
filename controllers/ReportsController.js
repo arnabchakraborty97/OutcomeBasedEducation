@@ -527,6 +527,144 @@ module.exports.CourseWise = function(req, res) {
 
 }
 
+
+// PO Wise
+module.exports.POWise = function(req, res) {
+
+	if (req.method == 'GET') {
+
+		ProgramOutcome.findAll()
+		.then((programoutcomes) => {
+			res.render('reports/powise', {
+				title: 'Program Outcome Wise',
+				programoutcomes: programoutcomes
+			})
+		})
+
+	} else if (req.method == 'POST') {
+
+		Student.findAll({
+			where: {
+				batch_of: req.body.batch
+			}
+		}).then((students) => {
+
+			Course.findAll({
+				where: {
+					semester: req.body.semester
+				}
+			}).then((courses) => {
+
+				var course_length = Object.keys(courses).length;
+
+				createPOWise(students, courses, req.body.PO, (p, avg) => {
+
+					
+					ProgramOutcome.findAll()
+					.then((programoutcomes) => {
+						res.render('reports/powise', {
+							title: 'Program Outcome Wise',
+							programoutcomes: programoutcomes,
+							p: p,
+							avg: avg,
+							courses: courses,
+							students: students,
+							PO_selected: req.body.PO,
+							semester_selected: req.body.semester,
+							batch_selected: req.body.batch
+						})
+					})
+
+				})
+
+			})
+
+		})
+
+	}
+
+}
+
+var createPOWise = function(students, courses, PO, callback) {
+
+	// Declaring empty arrays
+	const p = [], avg = [];
+
+	for (var i = 0; i < students.length; i++) {
+
+		createPOWiseSub(students[i], courses, PO, (c, average) => {
+
+			avg.push(average/(courses.length));
+			p.push(c);
+
+			if (p.length == students.length)
+				callback(p, avg);
+
+		})
+
+		
+
+	}
+	
+
+	// const msg = []
+
+	// for (var i = 0; i < students.length; i++) {
+	// 	const m = [];
+	// 	for (var j = 0; j < courses.length; j++) {
+	// 		m.push('YES')
+	// 	}
+	// 	msg.push(m);
+	// }
+
+	// if (i == students.length)
+	// 	callback(msg);
+
+}
+
+var createPOWiseSub = function(student, courses, PO, callback) {
+
+	const c = [];
+	var average = 0;
+
+	for (var j = 0; j < courses.length; j++) {
+
+		Assessment.findAll({
+			include: [{
+				model: Student,
+				where: {
+					id: student.id
+				}
+			},
+			{
+				model: Course,
+				where: {
+					id: courses[j].id
+				}
+			}],
+			where: {
+				programoutcomeId: PO
+			}
+		}).then((assessments) => {
+
+			var score = 0;
+
+			assessments.forEach((assessment) => {
+				score += assessment.score;
+			})
+
+			average += score;
+			c.push(score);
+
+			if (c.length == courses.length)
+				callback(c, average);
+
+		})
+
+	}
+}
+
+
 module.exports.allCSV = function (req, res) {
 
 	const fs = require('fs');
