@@ -529,6 +529,10 @@ module.exports.CourseWise = function(req, res) {
 
 module.exports.allCSV = function (req, res) {
 
+	const fs = require('fs');
+	const Json2csvParser = require('json2csv').Parser;
+	const fields = ['Roll No', 'Name', 'PO1', 'PO2', 'PO3', 'PO4', 'PO5', 'PO6', 'PO7', 'PO8', 'PO9', 'PO10', 'PO11', 'Average'];
+	
 	Student.findAll({
 		where: {
 			batch_of: req.body.batch
@@ -586,51 +590,72 @@ module.exports.allCSV = function (req, res) {
 				P9a += P9[i];
 			}
 			P9a /= P9.length
-
+			
 			for(var i = 0; i < P10.length; i++) {
 				P10a += P10[i];
 			}
 			P10a /= P10.length
-
+			
 			for(var i = 0; i < P11.length; i++) {
 				P11a += P11[i];
 			}
 			P11a /= P11.length
 
-			var context = [{
-				title: 'All Reports',
-				students: students,
-				P1: P1,
-				P2: P2,
-				P3: P3,
-				P4: P4,
-				P5: P5,
-				P6: P6,
-				P7: P7,
-				P8: P8,
-				P9: P9,
-				P10: P10,
-				P11: P11,
-				avg: avg,
-				P1a: P1a,
-				P2a: P2a,
-				P3a: P3a,
-				P4a: P4a,
-				P5a: P5a,
-				P6a: P6a,
-				P7a: P7a,
-				P8a: P8a,
-				P9a: P9a,
-				P10a: P10a,
-				P11a: P11a,
-				batch_selected: req.body.batch,
-				semester_selected: req.body.semester
-			}];
-
-			// Render the reports/all page with all of the data in context
-			// res.send(context)
-
+			console.log(students.length);
+			
 			// Create CSV
+			
+			var data = [];
+			i = 0;
+			students.forEach(function(s){
+				var p = {};
+				//console.log(s.roll + " " + s.name);
+				p["Roll No"] = s.roll;
+				p["Name"] = s.name;
+				p["PO1"] = P1[i];
+				p["PO2"] = P2[i];
+				p["PO3"] = P3[i];
+				p["PO4"] = P4[i];
+				p["PO5"] = P5[i];
+				p["PO6"] = P6[i];
+				p["PO7"] = P7[i];
+				p["PO8"] = P8[i];
+				p["PO9"] = P9[i];
+				p["PO10"] = P10[i];
+				p["PO11"] = P11[i];
+				p["Average"] = avg[i];
+				data.push(p);
+				i++;
+			});
+			
+			var p = {};
+			p["Roll No"] = "";
+			p["Name"] = "Average";
+			p["PO1"] = P1a;
+			p["PO2"] = P2a;
+			p["PO3"] = P3a;
+			p["PO4"] = P4a;
+			p["PO5"] = P5a;
+			p["PO6"] = P6a;
+			p["PO7"] = P7a;
+			p["PO8"] = P8a;
+			p["PO9"] = P9a;
+			p["PO10"] = P10a;
+			p["PO11"] = P11a;
+			data.push(p);
+			
+			const json2csvParser = new Json2csvParser({ fields });
+			const csv = json2csvParser.parse(data);
+			
+			console.log(csv);
+
+			var path='./public/'+req.body.batch+'_'+req.body.semester+'sem_'+Date.now()+'.csv'; 
+			fs.writeFile(path, csv, function(err,data) {
+			if (err) {throw err;}
+				else{
+					res.download(path); //Send download headers.
+				}
+			});
 			
 
 		})
