@@ -96,6 +96,15 @@
 				</tr>
 			</tfoot>
 		</table>
+		
+		<div class="text-center">
+			<form action="/reports/courseCSV" method="POST">
+				<input type="hidden" name="batch" value="<%= batch_selected %>">
+				<input type="hidden" name="course" value="<%= course_selected %>">
+
+				<input type="submit" value="Download CSV" class="btn btn-success btn-md">
+			</form>
+		</div>
 
 	<% } %>
 

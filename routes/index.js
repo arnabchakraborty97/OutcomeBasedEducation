@@ -165,5 +165,6 @@ router.post('/reports/coursewise', checkAuth, ReportsController.CourseWise);
 router.get('/reports/powise', checkAuth, ReportsController.POWise);
 router.post('/reports/powise', checkAuth, ReportsController.POWise);
 router.post('/reports/allCSV', checkAuth, ReportsController.allCSV);
+router.post('/reports/courseCSV', checkAuth, ReportsController.courseCSV);
 
 module.exports = router;
