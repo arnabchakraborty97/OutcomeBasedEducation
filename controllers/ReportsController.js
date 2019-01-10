@@ -200,7 +200,7 @@ var createTotalWeight = function(semester, callback) {
 var createPOWeight = function(courses, PO, callback) {
 
 	var weight = 0;
-	var coursecount = 0;
+	var coursecount = 1;
 
 	courses.forEach((course) => {
 
@@ -215,8 +215,9 @@ var createPOWeight = function(courses, PO, callback) {
 				weight += w;
 				coursecount++;
 
-				if (courses.length == coursecount)
+				if (courses.length == coursecount) {
 					callback(weight);
+				}
 
 			})
 
@@ -243,6 +244,17 @@ var courseWeight = function(charts, callback) {
 			callback(weight);
 
 	})
+
+	// charts.forEach((chart) => {
+	// 	chartcount++;
+	// 	weight += 4;
+	// 	console.log(chart.toolId);
+	// 	if (chartcount == charts.length) {
+	// 		console.log(weight);
+	// 		console.log('callback');
+	// 		callback(weight);
+	// 	}
+	// })
 
 }
 
