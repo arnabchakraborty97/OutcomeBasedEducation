@@ -733,7 +733,7 @@ module.exports.POWise = function(req, res) {
 
 				createPOWise(students, courses, req.body.PO, (p, total) => {
 
-					createCoursePOWeight(courses, req.body.PO, (c) => {
+					createPOCourseWeight(courses, req.body.PO, (c) => {
 
 						// Total Course Weight with a particular PO
 						var totalCoursesWeight = 0;
@@ -775,7 +775,7 @@ module.exports.POWise = function(req, res) {
 
 }
 
-var createCoursePOWeight = function(courses, PO, callback) {
+var createPOCourseWeight = function(courses, PO, callback) {
 
 	var c = [];
 
