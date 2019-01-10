@@ -803,9 +803,12 @@ var createPOCourseWeight = function(courses, PO, callback) {
 			courseWeight(charts, (weight) => {
 
 				c.push(weight);
+				console.log(c.length + ', ' + courses.length);
 
-				if (c.length == courses.length)
+				if ((c.length + 1) == courses.length) {
+					console.log('callback')
 					callback(c);
+				}
 
 			})
 
