@@ -444,7 +444,7 @@ module.exports.StudentWise = function(req, res) {
 var createCourseWise = function(students, course, callback) {
 
 	// Declaring empty arrays
-	const P1 = [], P2 = [], P3 = [], P4 = [], P5 = [], P6 = [], P7 = [], P8 = [], P9 = [], P10 = [], P11 = [], avg = [];
+	const P1 = [], P2 = [], P3 = [], P4 = [], P5 = [], P6 = [], P7 = [], P8 = [], P9 = [], P10 = [], P11 = [];
 
 	for (var i = 0; i < students.length; i++) {
 
@@ -633,9 +633,16 @@ module.exports.CourseWise = function(req, res) {
 					}
 					P11a = Math.round((P11a/P11.length) * 100)/100;
 
+					// Calculate total number of POs in the course
+					var po_count = 0;
+					for (var i = 0; i < P.length; i++) {
+						if (P[i] != 0)
+							po_count++;
+					}
+
 					// Horizontal Average in percentage
 					for (var i = 0; i < students.length; i++) {
-						var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/11;
+						var a = (P1[i] + P2[i] + P3[i] + P4[i] + P5[i] + P6[i] + P7[i] + P8[i] + P9[i] + P10[i] + P11[i])/po_count;
 						avg.push(Math.round((a) * 100)/100);
 					}
 
