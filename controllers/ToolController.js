@@ -6,12 +6,37 @@ var Tool = require('../models').Tool;
 // Render all tool models with their relating models in index
 module.exports.Index = function(req, res) {
 
-	Tool.findAll({
-		include: [{
-			model: Group,
-			include: [ Course ]
-		}]
-	}).then((tools) => res.render('tools/index', { title: 'Tools', tools: tools }))
+	if (req.method == 'GET') {
+
+		Course.findAll()
+		.then((courses) => {
+			res.render('tools/index', {
+				title: 'Tools',
+				courses: courses
+			})
+		})
+
+	} else if (req.method == 'POST') {
+
+		Course.findAll()
+		.then((courses) => {
+			Tool.findAll({
+				include: [{
+					model: Group,
+					where: {
+						courseId: req.body.course
+					},
+					include: [ Course ]
+				}]
+			}).then((tools) => res.render('tools/index', { 
+				title: 'Tools', 
+				tools: tools,
+				courses: courses,
+				course_selected: req.body.course 
+			}))
+		})
+
+	}
 
 }
 

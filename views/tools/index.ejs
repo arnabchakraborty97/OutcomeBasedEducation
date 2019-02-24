@@ -1,48 +1,74 @@
 <% include ../partials/header %>
 		
-	<% if(Object.keys(tools).length) { %>
+	<div class="text-center">
+		<a href="/tools/create" class="btn btn-success">Add Tool</a>
+	</div>
 
-		<div class="text-center">
-			<a href="/tools/create" class="btn btn-success">Add Tool</a>
+	<br>
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center">Choose Course</h2>
 		</div>
-		<br>
+		<div class="card-body">
+			<div class="text-center">
+				<form method="POST" action="/tools">
+					<label for="course" class="col-form-label"></label>
+					<select id="course" name="course" class="form-control">
+						<% courses.forEach((course) => { %>
 
-		<table class="table table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th>#</th>
-					<th>Tool Name</th>
-					<th>Group</th>
-					<th>Course</th>
-					<th colspan="2">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="table-light">
-				
-				<% tools.forEach(function (tool) { %>
+							<option value="<%= course.id %>" <% if(typeof course_selected !== 'undefined') { %> <% if(course_selected == course.id) { %> selected <% } %> <% } %> ><%= course.name %></option>
 
+						<% }) %>
+					</select>
+					<br>
+					<input type="submit" value="Select" class="btn btn-success">
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<% if(typeof tools !== 'undefined') { %>
+
+		<% if(Object.keys(tools).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
 					<tr>
-						<td><%= tool.id %></td>
-						<td><%= tool.name %></td>
-						<td><%= tool.Group.name %></td>
-						<td><%= tool.Group.Course.name %></td>
-						<td>
-							<a class="btn btn-sm btn-secondary" href="/tools/<%= tool.id %>/edit">Edit</a>
-						</td>
-						<td>
-							<form action="/tools/<%= tool.id %>?_method=DELETE" method="POST">
-								<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-							</form>
-						</td>
+						<th>#</th>
+						<th>Tool Name</th>
+						<th>Group</th>
+						<th>Course</th>
+						<th colspan="2">Actions</th>
 					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% tools.forEach(function (tool) { %>
 
-				<% }) %>
+						<tr>
+							<td><%= tool.id %></td>
+							<td><%= tool.name %></td>
+							<td><%= tool.Group.name %></td>
+							<td><%= tool.Group.Course.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/tools/<%= tool.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/tools/<%= tool.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
 
-			</tbody>
-		</table>
+					<% }) %>
 
-	<% } else { %>
-		Nothing to show
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
 	<% } %>
 
 <% include ../partials/footer %>

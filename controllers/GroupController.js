@@ -5,9 +5,36 @@ var Group = require('../models').Group;
 // Render all Group models in index with related models
 module.exports.Index = function(req, res) {
 
-	Group.findAll({
-		include: [Course]
-	}).then((groups) => { res.render('groups/index', { title: 'Groups', groups: groups }) })
+	if (req.method == 'GET') {
+
+		Course.findAll()
+		.then((courses) => {
+			res.render('groups/index', {
+				title: 'Groups',
+				courses: courses
+			})
+		})
+
+	} else if (req.method == 'POST') {
+		Course.findAll()
+		.then((courses) => {
+			Group.findAll({
+				where: {
+					courseId: req.body.course
+				},
+				include: [Course]
+			}).then((groups) => { 
+				res.render('groups/index', { 
+					title: 'Groups', 
+					groups: groups,
+					courses: courses,
+					course_selected: req.body.course
+				}) 
+			})
+		})
+	}
+
+	
 	
 
 }

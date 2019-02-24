@@ -100,16 +100,18 @@ router.delete('/courses/:id', checkAuth, CourseController.Destroy);
 
 // Groups
 router.get('/groups', checkAuth, GroupController.Index);
+router.post('/groups', checkAuth, GroupController.Index);
 router.get('/groups/create', checkAuth, GroupController.Create);
-router.post('/groups', checkAuth, GroupController.Store);
+router.post('/groups/store', checkAuth, GroupController.Store);
 router.get('/groups/:id/edit', checkAuth, GroupController.Edit);
 router.put('/groups/:id', checkAuth, GroupController.Update);
 router.delete('/groups/:id', checkAuth, GroupController.Destroy);
 
 // Tools
 router.get('/tools', checkAuth, ToolController.Index);
+router.post('/tools', checkAuth, ToolController.Index);
 router.get('/tools/create', checkAuth, ToolController.Create);
-router.post('/tools', checkAuth, ToolController.Store);
+router.post('/tools/store', checkAuth, ToolController.Store);
 router.get('/tools/:id/edit', checkAuth, ToolController.Edit);
 router.put('/tools/:id', checkAuth, ToolController.Update);
 router.delete('/tools/:id', checkAuth, ToolController.Destroy);
@@ -139,8 +141,8 @@ router.put('/students/:id', checkAuth, StudentController.Update);
 router.delete('/students/:id', checkAuth, StudentController.Destroy);
 
 // Charts
-router.get('/charts', ChartController.Index);
-router.post('/charts', ChartController.Index);
+router.get('/charts', checkAuth, ChartController.Index);
+router.post('/charts', checkAuth, ChartController.Index);
 router.post('/charts/create', checkAuth, ChartController.Create);
 router.post('/charts/store', checkAuth, ChartController.Store);
 router.get('/charts/:id/edit', checkAuth, ChartController.Edit);

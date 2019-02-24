@@ -6,7 +6,7 @@
 		</div>
 		<div class="card-body">
 			
-			<form <% if (typeof tool == 'undefined') { %> action="/tools" <% } else { %> action="/tools/<%= tool.id %>?_method=PUT" <% } %> method="POST">
+			<form <% if (typeof tool == 'undefined') { %> action="/tools/store" <% } else { %> action="/tools/<%= tool.id %>?_method=PUT" <% } %> method="POST">
 				
 				<label for="name">Name</label>
 				<input type="text" id="name" <% if(typeof tool != 'undefined') { %> value="<%= tool.name %>" <% } %> name="name" class="form-control">

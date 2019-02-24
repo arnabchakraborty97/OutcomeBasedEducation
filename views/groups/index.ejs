@@ -1,45 +1,73 @@
 <% include ../partials/header %>
 	
-	<% if(Object.keys(groups).length) { %>
+	<div class="text-center">
+		<a href="/groups/create" class="btn btn-success">Add Group</a>
+	</div>
 
-		<div class="text-center">
-			<a href="/groups/create" class="btn btn-success">Add Group</a>
+	<br>
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center">Choose Course</h2>
 		</div>
+		<div class="card-body">
+			<div class="text-center">
+				<form method="POST" action="/groups">
+					<label for="course" class="col-form-label"></label>
+					<select id="course" name="course" class="form-control">
+						<% courses.forEach((course) => { %>
 
-		<table class="table table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th>#</th>
-					<th>Group Name</th>
-					<th>Course</th>
-					<th colspan="2">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="table-light">
-				
-				<% groups.forEach(function (group) { %>
+							<option value="<%= course.id %>" <% if(typeof course_selected !== 'undefined') { %> <% if(course_selected == course.id) { %> selected <% } %> <% } %> ><%= course.name %></option>
 
+						<% }) %>
+					</select>
+					<br>
+					<input type="submit" value="Select" class="btn btn-success">
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<% if(typeof groups !== 'undefined') { %>
+		<% if(Object.keys(groups).length) { %>
+
+			<table class="table table-bordered">
+				<thead class="thead-dark">
 					<tr>
-						<td><%= group.id %></td>
-						<td><%= group.name %></td>
-						<td><%= group.Course.code %> - <%= group.Course.name %></td>
-						<td>
-							<a class="btn btn-sm btn-secondary" href="/groups/<%= group.id %>/edit">Edit</a>
-						</td>
-						<td>
-							<form action="/groups/<%= group.id %>?_method=DELETE" method="POST">
-								<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-							</form>
-						</td>
+						<th>#</th>
+						<th>Group Name</th>
+						<th>Course</th>
+						<th colspan="2">Actions</th>
 					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% groups.forEach(function (group) { %>
 
-				<% }) %>
+						<tr>
+							<td><%= group.id %></td>
+							<td><%= group.name %></td>
+							<td><%= group.Course.code %> - <%= group.Course.name %></td>
+							<td>
+								<a class="btn btn-sm btn-secondary" href="/groups/<%= group.id %>/edit">Edit</a>
+							</td>
+							<td>
+								<form action="/groups/<%= group.id %>?_method=DELETE" method="POST">
+									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+								</form>
+							</td>
+						</tr>
 
-			</tbody>
-		</table>
+					<% }) %>
 
-	<% } else { %>
-		Nothing to show
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
 	<% } %>
 
 
