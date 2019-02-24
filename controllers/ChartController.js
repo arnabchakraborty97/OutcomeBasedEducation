@@ -9,24 +9,44 @@ var ProgramOutcome = require('../models').ProgramOutcome;
 // Rendering chart model in index with all related models
 module.exports.Index = function(req, res) {
 
-	Chart.findAll({
-		include: [
-			Course,
-			ProgramOutcome,
-			{
-				model: Tool,
-				include: [ Group ]
-			}
-		]
-	}).then((charts) => {
-		Course.findAll().then((courses) => {
+	if (req.method == 'GET') {
+
+		Course.findAll()
+		.then((courses) => {
+
 			res.render('charts/index', {
 				title: 'Charts',
-				charts: charts,
-				courses: courses
+				'courses': courses
+			})
+
+		})
+
+	} else if (req.method == 'POST') {
+
+		Chart.findAll({
+			where: {
+				courseId: req.body.course
+			},
+			include: [
+				Course,
+				ProgramOutcome,
+				{
+					model: Tool,
+					include: [ Group ]
+				}
+			]
+		}).then((charts) => {
+			Course.findAll().then((courses) => {
+				res.render('charts/index', {
+					title: 'Charts',
+					charts: charts,
+					courses: courses,
+					course_selected: req.body.course
+				})
 			})
 		})
-	})
+
+	}	
 
 }
 

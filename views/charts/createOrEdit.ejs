@@ -6,7 +6,7 @@
 		</div>
 		<div class="card-body">
 			
-			<form <% if (typeof chart == 'undefined') { %> action="/charts" <% } else { %> action="/charts/<%= chart.id %>?_method=PUT" <% } %> method="POST">
+			<form <% if (typeof chart == 'undefined') { %> action="/charts/store" <% } else { %> action="/charts/<%= chart.id %>?_method=PUT" <% } %> method="POST">
 				
 
 				<table class="table table-bordered">

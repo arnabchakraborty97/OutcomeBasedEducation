@@ -1,61 +1,91 @@
 <% include ../partials/header %>
 
-	<div class="text-center">
-		<form method="POST" action="/charts/create">
-			<select name="course_id" class="form-control">
-				<% courses.forEach((course) => { %>
-					<option value="<%= course.id %>"><%= course.code %> - <%= course.name %></option>
-				<% }) %>
-			</select>
+	<div class="card">
+		<div class="card-body">
+			<div class="text-center">
+				<form method="POST" action="/charts/create">
+					<select name="course_id" class="form-control">
+						<% courses.forEach((course) => { %>
+							<option value="<%= course.id %>"><%= course.code %> - <%= course.name %></option>
+						<% }) %>
+					</select>
 
-			<input type="submit" value="Add Chart" class="btn btn-success">
-		</form>
+					<input type="submit" value="Add Chart" class="btn btn-success">
+				</form>
+			</div>
+		</div>
 	</div>
 	<br>
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center">Choose Course</h2>
+		</div>
+		<div class="card-body">
+			<div class="text-center">
+				<form method="POST" action="/charts">
+					<label for="course" class="col-form-label"></label>
+					<select id="course" name="course" class="form-control">
+						<% courses.forEach((course) => { %>
+
+							<option value="<%= course.id %>" <% if(typeof course_selected !== 'undefined') { %> <% if(course_selected == course.id) { %> selected <% } %> <% } %> ><%= course.name %></option>
+
+						<% }) %>
+					</select>
+					<br>
+					<input type="submit" value="Select" class="btn btn-success">
+
+				</form>
+			</div>
+		</div>
+	</div>
 	
-	<% if(Object.keys(charts).length) { %>
+	<% if(typeof charts !== 'undefined') { %>
 
-		<table class="table table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th>#</th>
-					<th>Course</th>
-					<th>Group</th>
-					<th>Tool</th>
-					<th>Program Outcome</th>
-					<th>Fulfils</th>
-					<th colspan="2">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="table-light">
-				
-				<% charts.forEach(function (chart) { %>
-					<% if(chart.fulfil !== '') { %>
-						<tr>
-							<td><%= chart.id %></td>
-							<td><%= chart.Course.name %></td>
-							<td><%= chart.Tool.Group.name %></td>
-							<td><%= chart.Tool.name %></td>
-							<td><%= chart.ProgramOutcome.name %></td>
-							<td><%= chart.fulfil %></td>
-							<td>
-								<a class="btn btn-sm btn-secondary" href="/charts/<%= chart.id %>/edit">Edit</a>
-							</td>
-							<td>
-								<form action="/charts/<%= chart.id %>?_method=DELETE" method="POST">
-									<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-								</form>
-							</td>
-						</tr>
-					<% } %>
+		<% if(Object.keys(charts).length) { %>
 
-				<% }) %>
+			<table class="table table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Course</th>
+						<th>Group</th>
+						<th>Tool</th>
+						<th>Program Outcome</th>
+						<th>Fulfils</th>
+						<th colspan="2">Actions</th>
+					</tr>
+				</thead>
+				<tbody class="table-light">
+					
+					<% charts.forEach(function (chart) { %>
+						<% if(chart.fulfil !== '') { %>
+							<tr>
+								<td><%= chart.id %></td>
+								<td><%= chart.Course.name %></td>
+								<td><%= chart.Tool.Group.name %></td>
+								<td><%= chart.Tool.name %></td>
+								<td><%= chart.ProgramOutcome.name %></td>
+								<td><%= chart.fulfil %></td>
+								<td>
+									<a class="btn btn-sm btn-secondary" href="/charts/<%= chart.id %>/edit">Edit</a>
+								</td>
+								<td>
+									<form action="/charts/<%= chart.id %>?_method=DELETE" method="POST">
+										<input type="submit" value="Delete" class="btn btn-sm btn-danger">
+									</form>
+								</td>
+							</tr>
+						<% } %>
 
-			</tbody>
-		</table>
+					<% }) %>
 
-	<% } else { %>
-		Nothing to show
+				</tbody>
+			</table>
+
+		<% } else { %>
+			Nothing to show
+		<% } %>
 	<% } %>
 
 

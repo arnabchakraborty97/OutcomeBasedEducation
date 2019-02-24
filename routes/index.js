@@ -139,9 +139,10 @@ router.put('/students/:id', checkAuth, StudentController.Update);
 router.delete('/students/:id', checkAuth, StudentController.Destroy);
 
 // Charts
-router.get('/charts', checkAuth, ChartController.Index);
+router.get('/charts', ChartController.Index);
+router.post('/charts', ChartController.Index);
 router.post('/charts/create', checkAuth, ChartController.Create);
-router.post('/charts', checkAuth, ChartController.Store);
+router.post('/charts/store', checkAuth, ChartController.Store);
 router.get('/charts/:id/edit', checkAuth, ChartController.Edit);
 router.put('/charts/:id', checkAuth, ChartController.Update);
 router.delete('/charts/:id', checkAuth, ChartController.Destroy);
