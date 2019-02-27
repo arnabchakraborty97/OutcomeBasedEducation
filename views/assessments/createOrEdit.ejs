@@ -60,7 +60,7 @@
 										<td><%= chart.Tool.Group.name %></td>
 										<td><%= chart.Tool.name %></td>
 										<td><%= chart.ProgramOutcome.name %> - <%= chart.fulfil %></td>
-										<td><input type="text" name="score" class="form-control"></td>
+										<td><input class="<%= chart.Tool.id %>" onchange="updatePO(this)" type="number" min="1" max = "4" name="score" class="form-control"></td>
 									</tr>
 								<% } %>
 							<% }) %>
@@ -77,5 +77,18 @@
 		</div>
 	</div>
 
+	<script>
+		function updatePO(value){
+			//var id = document.querySelector(value).getAttribute("class");
+			//console.log(id);
+			//var tool = document.querySelectorAll("input[name=score]").getAttribute("class");
+			var toolId = $(value).attr("class");
+			var score = $(value).val();
+			console.log(score); 
+			console.log(toolId); 
+			var tool = $("."+toolId).val(score);
+			//for (var i=0; i<tool.length; i++)	
+		}
+	</script>
 	
 <% include ../partials/footer %>

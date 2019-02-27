@@ -73,7 +73,9 @@ module.exports.Create = function(req, res) {
 // Load the corressponding chart and make new assessment records based on score input
 module.exports.Store = function(req, res) {
 
-	Course.findById(req.body.course).then((course) => {
+	console.log(req.body.score);
+	
+	/*Course.findById(req.body.course).then((course) => {
 		Chart.findAll({
 			where: {
 				courseId: req.body.course
@@ -117,7 +119,7 @@ module.exports.Store = function(req, res) {
 			res.redirect('/assessments')
 
 		})
-	})
+	})*/
 
 }
 
