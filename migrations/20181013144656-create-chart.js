@@ -11,19 +11,19 @@ module.exports = {
       courseId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'courses', key: 'id' },
+        references: { model: 'Courses', key: 'id' },
         odDelete: 'CASCADE'
       },
       toolId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'tools', key: 'id' },
+        references: { model: 'Tools', key: 'id' },
         odDelete: 'CASCADE'
       },
       programoutcomeId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: { model: 'programoutcomes', key: 'id' },
+        references: { model: 'ProgramOutcomes', key: 'id' },
         odDelete: 'CASCADE'
       },
       fulfil: {
