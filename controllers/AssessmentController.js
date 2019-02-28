@@ -12,14 +12,10 @@ var Assessment = require('../models').Assessment;
 // Render all assessments(including relation models) in index
 module.exports.Index = function(req, res) {
 
-	Assessment.findAll({
-		include: [Student, Course, ProgramOutcome]
-	}).then((assessments) => {
-		res.render('assessments/index', {
-			title: 'Assessments',
-			assessments: assessments
-		})
+	res.render('assessments/index', {
+		title: 'Assessments'
 	})
+	
 
 }
 
@@ -75,7 +71,7 @@ module.exports.Store = function(req, res) {
 
 	console.log(req.body.score);
 	
-	/*Course.findById(req.body.course).then((course) => {
+	Course.findById(req.body.course).then((course) => {
 		Chart.findAll({
 			where: {
 				courseId: req.body.course
@@ -119,7 +115,7 @@ module.exports.Store = function(req, res) {
 			res.redirect('/assessments')
 
 		})
-	})*/
+	})
 
 }
 

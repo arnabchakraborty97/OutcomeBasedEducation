@@ -4,49 +4,6 @@
 		<a href="/assessments/create" class="btn btn-success">Add Assessment</a>
 	</div>
 	<br>
-		
-	<% if(Object.keys(assessments).length) { %>
-
-		<table class="table table-bordered">
-			<thead class="thead-dark">
-				<tr>
-					<th>#</th>
-					<th>Student Name</th>
-					<th>Course</th>
-					<th>Program Outcome</th>
-					<th>Score</th>
-					<th colspan="2">Actions</th>
-				</tr>
-			</thead>
-			<tbody class="table-light">
-				
-				<% assessments.forEach(function (assessment) { %>
-
-					<tr>
-						<td><%= assessment.id %></td>
-						<td><%= assessment.Student.roll %> - <%= assessment.Student.name %></td>
-						<td><%= assessment.Course.code %> - <%= assessment.Course.name %></td>
-						<td><%= assessment.ProgramOutcome.name %></td>
-						<td><%= assessment.score %></td>
-						<td>
-							<a class="btn btn-sm btn-secondary" href="/assessments/<%= assessment.id %>/edit">Edit</a>
-						</td>
-						<td>
-							<form action="/assessments/<%= assessment.id %>?_method=DELETE" method="POST">
-								<input type="submit" value="Delete" class="btn btn-sm btn-danger">
-							</form>
-						</td>
-					</tr>
-
-				<% }) %>
-
-			</tbody>
-		</table>
-
-	<% } else { %>
-		Nothing to show
-	<% } %>
-
 
 
 <% include ../partials/footer %>
