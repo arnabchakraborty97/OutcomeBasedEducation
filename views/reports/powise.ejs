@@ -11,6 +11,9 @@
 				<div class="row">
 					<label for="student" class="col-form-label col-md-1 text-md-right">Batch: </label>
 					<select class="form-control col-md-2" id="batch" name="batch">
+						<option value="2013-2017" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2013-2017") { %> selected <% } %> <% } %>>2013-2017</option>
+						<option value="2014-2018" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2014-2018") { %> selected <% } %> <% } %>>2014-2018</option>
+						<option value="2015-2019" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2015-2019") { %> selected <% } %> <% } %>>2015-2019</option>
 						<option value="2016-2020" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2016-2020") { %> selected <% } %> <% } %>>2016-2020</option>
 						<option value="2017-2021" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2017-2021") { %> selected <% } %> <% } %>>2017-2021</option>
 						<option value="2018-2022" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2018-2022") { %> selected <% } %> <% } %>>2018-2022</option>
