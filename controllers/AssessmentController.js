@@ -12,9 +12,20 @@ var Assessment = require('../models').Assessment;
 // Render all assessments(including relation models) in index
 module.exports.Index = function(req, res) {
 
-	res.render('assessments/index', {
-		title: 'Assessments'
+	Assessment.findAll({
+		include: [
+			Student,
+			Course,
+			ProgramOutcome
+		]
 	})
+	.then((assessments) => {
+		res.render('assessments/index', {
+			title: 'Assessments',
+			assessments: assessments
+		})
+	})
+	
 	
 
 }
@@ -86,28 +97,60 @@ module.exports.Store = function(req, res) {
 			]
 		}).then((charts) => {
 			var c = 0
+			var ch = []
+
 			charts.forEach((chart) => {
-				if (chart.fulfil == 'S') {
-					Assessment.create({
-						score: req.body.score[c++],
-						studentId: req.body.student,
-						courseId: req.body.course,
-						programoutcomeId: chart.ProgramOutcome.id
-					})
-					// console.log('Score: ' + req.body.score[c++] + ', ProgramOutcome: ' + chart.ProgramOutcome.id)
-				} else if (chart.fulfil == 'M') {
-					Assessment.create({
-						score: 0.6 * parseInt(req.body.score[c++]),
-						studentId: req.body.student,
-						courseId: req.body.course,
-						programoutcomeId: chart.ProgramOutcome.id
-					})
-				} else if (chart.fulfil == 'W') {
-					Assessment.create({
-						score: 0.2 * parseInt(req.body.score[c++]),
-						studentId: req.body.student,
-						courseId: req.body.course,
-						programoutcomeId: chart.ProgramOutcome.id
+				if (chart.fulfil != "")
+					ch.push(chart);
+			})
+
+			Assessment.findAll({
+				where: {
+					studentId: req.body.student,
+					courseId: req.body.course,
+				}
+			}).then((assessments) => {
+				if (Object.keys(assessments).length) {
+					for (var i = 0; i < assessments.length; i++) {
+						if (ch[i].fulfil == 'S') {
+							assessments[i].update({
+								score: req.body.score[c++]
+							})
+						} else if (ch[i].fulfil == 'M') {
+							assessments[i].update({
+								score: 0.6 * parseInt(req.body.score[c++])
+							})
+						} else if (ch[i].fulfil == 'W') {
+							assessments[i].update({
+								score: 0.2 * parseInt(req.body.score[c++])
+							})
+						}
+					}
+				} else {
+					charts.forEach((chart) => {
+						if (chart.fulfil == 'S') {
+							Assessment.create({
+								score: req.body.score[c++],
+								studentId: req.body.student,
+								courseId: req.body.course,
+								programoutcomeId: chart.ProgramOutcome.id
+							})
+							// console.log('Score: ' + req.body.score[c++] + ', ProgramOutcome: ' + chart.ProgramOutcome.id)
+						} else if (chart.fulfil == 'M') {
+							Assessment.create({
+								score: 0.6 * parseInt(req.body.score[c++]),
+								studentId: req.body.student,
+								courseId: req.body.course,
+								programoutcomeId: chart.ProgramOutcome.id
+							})
+						} else if (chart.fulfil == 'W') {
+							Assessment.create({
+								score: 0.2 * parseInt(req.body.score[c++]),
+								studentId: req.body.student,
+								courseId: req.body.course,
+								programoutcomeId: chart.ProgramOutcome.id
+							})
+						}
 					})
 				}
 			})
