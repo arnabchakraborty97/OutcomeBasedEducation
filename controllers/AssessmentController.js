@@ -12,21 +12,9 @@ var Assessment = require('../models').Assessment;
 // Render all assessments(including relation models) in index
 module.exports.Index = function(req, res) {
 
-	Assessment.findAll({
-		include: [
-			Student,
-			Course,
-			ProgramOutcome
-		]
+	res.render('assessments/index', {
+		title: 'Assessments',
 	})
-	.then((assessments) => {
-		res.render('assessments/index', {
-			title: 'Assessments',
-			assessments: assessments
-		})
-	})
-	
-	
 
 }
 

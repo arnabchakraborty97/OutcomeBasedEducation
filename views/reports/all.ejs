@@ -52,17 +52,17 @@
 				<tr>
 					<th>Roll No.</th>
 					<th>Student Name</th>
-					<th>PO1 (<%= P[0].toFixed(1) %>)</th>
-					<th>PO2 (<%= P[1].toFixed(1) %>)</th>
-					<th>PO3 (<%= P[2].toFixed(1) %>)</th>
-					<th>PO4 (<%= P[3].toFixed(1) %>)</th>
-					<th>PO5 (<%= P[4].toFixed(1) %>)</th>
-					<th>PO6 (<%= P[5].toFixed(1) %>)</th>
-					<th>PO7 (<%= P[6].toFixed(1) %>)</th>
-					<th>PO8 (<%= P[7].toFixed(1) %>)</th>
-					<th>PO9 (<%= P[8].toFixed(1) %>)</th>
-					<th>PO10 (<%= P[9].toFixed(1) %>)</th>
-					<th>PO11 (<%= P[10].toFixed(1) %>)</th>
+					<th>PO1 (<%= P[0].toFixed(2) %>)</th>
+					<th>PO2 (<%= P[1].toFixed(2) %>)</th>
+					<th>PO3 (<%= P[2].toFixed(2) %>)</th>
+					<th>PO4 (<%= P[3].toFixed(2) %>)</th>
+					<th>PO5 (<%= P[4].toFixed(2) %>)</th>
+					<th>PO6 (<%= P[5].toFixed(2) %>)</th>
+					<th>PO7 (<%= P[6].toFixed(2) %>)</th>
+					<th>PO8 (<%= P[7].toFixed(2) %>)</th>
+					<th>PO9 (<%= P[8].toFixed(2) %>)</th>
+					<th>PO10 (<%= P[9].toFixed(2) %>)</th>
+					<th>PO11 (<%= P[10].toFixed(2) %>)</th>
 					<th>Average</th>
 				</tr>
 			</thead>
@@ -73,18 +73,18 @@
 					<tr>
 						<td><%= students[i].roll %></td>
 						<td><%= students[i].name %></td>
-						<td><%= P1[i] %></td>
-						<td><%= P2[i] %></td>
-						<td><%= P3[i] %></td>
-						<td><%= P4[i] %></td>
-						<td><%= P5[i] %></td>
-						<td><%= P6[i] %></td>
-						<td><%= P7[i] %></td>
-						<td><%= P8[i] %></td>
-						<td><%= P9[i] %></td>
-						<td><%= P10[i] %></td>
-						<td><%= P11[i] %></td>
-						<td><%= avg[i] %></td>
+						<td><%= P1[i].toFixed(2) %></td>
+						<td><%= P2[i].toFixed(2) %></td>
+						<td><%= P3[i].toFixed(2) %></td>
+						<td><%= P4[i].toFixed(2) %></td>
+						<td><%= P5[i].toFixed(2) %></td>
+						<td><%= P6[i].toFixed(2) %></td>
+						<td><%= P7[i].toFixed(2) %></td>
+						<td><%= P8[i].toFixed(2) %></td>
+						<td><%= P9[i].toFixed(2) %></td>
+						<td><%= P10[i].toFixed(2) %></td>
+						<td><%= P11[i].toFixed(2) %></td>
+						<td><%= avg[i].toFixed(2) %></td>
 					</tr>
 
 				<% } %>
@@ -94,17 +94,17 @@
 				<tr>
 					<td></td>
 					<td>Average</td>
-					<td><%= P1a %></td>
-					<td><%= P2a %></td>
-					<td><%= P3a %></td>
-					<td><%= P4a %></td>
-					<td><%= P5a %></td>
-					<td><%= P6a %></td>
-					<td><%= P7a %></td>
-					<td><%= P8a %></td>
-					<td><%= P9a %></td>
-					<td><%= P10a %></td>
-					<td><%= P11a %></td>
+					<td><%= P1a.toFixed(2) %></td>
+					<td><%= P2a.toFixed(2) %></td>
+					<td><%= P3a.toFixed(2) %></td>
+					<td><%= P4a.toFixed(2) %></td>
+					<td><%= P5a.toFixed(2) %></td>
+					<td><%= P6a.toFixed(2) %></td>
+					<td><%= P7a.toFixed(2) %></td>
+					<td><%= P8a.toFixed(2) %></td>
+					<td><%= P9a.toFixed(2) %></td>
+					<td><%= P10a.toFixed(2) %></td>
+					<td><%= P11a.toFixed(2) %></td>
 				</tr>
 			</tfoot>
 		</table>

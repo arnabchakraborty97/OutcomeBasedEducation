@@ -78,11 +78,11 @@
 						<td><%= students[i].name %></td>
 						<% for (var j = 0; j < courses.length; j++) { %>
 
-							<td><%= p[i][j] %></td>
+							<td><%= p[i][j].toFixed(2) %></td>
 
 						<% } %>
-						<td><%= total[i] %></td>
-						<td><%= avg[i] %></td>
+						<td><%= total[i].toFixed(2) %></td>
+						<td><%= avg[i].toFixed(2) %></td>
 
 
 					</tr>

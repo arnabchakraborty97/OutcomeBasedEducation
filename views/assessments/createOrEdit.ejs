@@ -31,7 +31,7 @@
 				<form <% if (typeof assessment == 'undefined') { %> action="/assessments" <% } else { %> action="/assessments/<%= assessment.id %>?_method=PUT" <% } %> method="POST">
 
 					<input type="hidden" name="course" value="<%= course_selected.id %>" readonly>
-					<div class="text-center"><div class="col-md-3 btn btn-lg btn-info"><%= course_selected.name %></div></div><br>
+					<div class="text-center"><div class="col-md-6 btn btn-lg btn-info"><%= course_selected.name %></div></div><br>
 					<div class="row">
 						<label for="student" class="col-form-label col-md-1 offset-md-4">Student: </label>
 						<select id="student" name="student" class="form-control col-md-3">
