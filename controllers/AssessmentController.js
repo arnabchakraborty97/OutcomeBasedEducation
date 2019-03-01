@@ -48,13 +48,18 @@ module.exports.Create = function(req, res) {
 		}).then((charts) => {
 			Course.findAll().then((courses) => {
 				Course.findById(req.body.course_id).then((course) => {
-					Student.findAll().then((students) => {
+					Student.findAll({
+						where: {
+							batch_of: req.body.batch
+						}
+					}).then((students) => {
 						res.render('assessments/createOrEdit', {
 							title: 'Create Assessment',
 							courses: courses,
 							charts: charts,
 							course_selected: course,
-							students: students
+							students: students,
+							batch_selected: req.body.batch
 						})
 					})
 				})

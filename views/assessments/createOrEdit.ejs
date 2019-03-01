@@ -7,11 +7,24 @@
 		<div class="card-body">
 
 			<form method="POST" action="/assessments/create" class="row">
-				<label for="course_id" class="col-form-label col-md-1 offset-md-3">Course: </label>
+				<label for="course_id" class="col-form-label col-md-1">Course: </label>
 				<select id="course_id" name="course_id" class="form-control col-md-3">
 					<% courses.forEach((course) => { %>
 						<option value="<%= course.id %>" <% if (typeof course_selected !== 'undefined') { %> <% if(course_selected.id == course.id) { %> selected <% } %> <% } %>><%= course.code %> - <%= course.name %></option>
 					<% }) %>
+				</select>
+
+				<label for="student" class="col-form-label col-md-2 text-md-right">Batch: </label>
+				<select class="form-control col-md-3" id="batch" name="batch">
+					<option value="2013-2017" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2013-2017") { %> selected <% } %> <% } %>>2013-2017</option>
+					<option value="2014-2018" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2014-2018") { %> selected <% } %> <% } %>>2014-2018</option>
+					<option value="2015-2019" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2015-2019") { %> selected <% } %> <% } %>>2015-2019</option>
+					<option value="2016-2020" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2016-2020") { %> selected <% } %> <% } %>>2016-2020</option>
+					<option value="2017-2021" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2017-2021") { %> selected <% } %> <% } %>>2017-2021</option>
+					<option value="2018-2022" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2018-2022") { %> selected <% } %> <% } %>>2018-2022</option>
+					<option value="2019-2023" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2019-2023") { %> selected <% } %> <% } %>>2019-2023</option>
+					<option value="2020-2024" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2020-2024") { %> selected <% } %> <% } %>>2020-2024</option>
+					<option value="2021-2025" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2021-2025") { %> selected <% } %> <% } %>>2021-2025</option>
 				</select>
 
 				<input type="submit" value="Submit" class="btn btn-success col-md-2 ml-2">
