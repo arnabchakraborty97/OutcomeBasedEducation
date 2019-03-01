@@ -16,7 +16,7 @@
 					<select id="course" name="course" class="form-control">
 						<% courses.forEach((course) => { %>
 
-							<option value="<%= course.id %>" <% if(typeof course_selected !== 'undefined') { %> <% if(course_selected == course.id) { %> selected <% } %> <% } %> ><%= course.name %></option>
+							<option value="<%= course.id %>" <% if(typeof course_selected !== 'undefined') { %> <% if(course_selected == course.id) { %> selected <% } %> <% } %> ><%= course.code %> - <%= course.name %></option>
 
 						<% }) %>
 					</select>
