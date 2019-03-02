@@ -1,3 +1,6 @@
+var fs = require('fs');
+var csv = require('fast-csv');
+
 // import models
 var Student = require('../models').Student;
 var Department = require('../models').Department;
@@ -64,4 +67,61 @@ module.exports.Destroy = function(req, res) {
 		}
 	}).then(() => res.redirect('/students'))
 
+}
+
+module.exports.importCSV = function(req, res) {
+
+	if (req.method == "GET") {
+		Department.findAll()
+		.then((departments) => {
+			res.render('students/importCSV', {
+				title: "Upload through CSV",
+				departments: departments
+			})
+		})
+	} else if (req.method == "POST") {
+		
+		console.log(req.files.csv)
+
+		// Upload file
+		var file = req.files.csv;
+		var filename = file.name;
+
+		file.mv('./public/storage/students.csv', function(err) {
+	    	if (err)
+	      		return res.status(500).send(err);
+
+		    res.send('File uploaded!');
+		});
+
+		fs.createReadStream('./public/storage/students.csv')
+		.pipe(csv())
+		.on('data', function(data) {
+			try {
+				
+				createStudent(data[1], data[0], req.body.batch, req.body.department, function() {
+					console.log('yes');
+				})
+
+			} catch(err) {
+				console.log(err)
+			}
+		})
+		.on('end', function () {
+			console.log('done')
+		})
+
+	}
+
+}
+
+var createStudent = function(name, roll, batch, department, callback) {
+	Student.create({
+		name: name,
+		roll: roll,
+		batch_of: batch,
+		departmentId: department
+	}).then(() => {
+		callback(1)
+	})
 }

@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var methodOverride = require('method-override');
+var upload = require('express-fileupload');
 
 const app = express();
 
@@ -48,6 +49,9 @@ app.use(expressValidator({
 		};
 	}
 }));
+
+// File Uploads
+app.use(upload());
 
 // Connect Flash
 app.use(flash());

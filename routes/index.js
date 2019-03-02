@@ -139,6 +139,8 @@ router.post('/students', checkAuth, StudentController.Store);
 router.get('/students/:id/edit', checkAuth, StudentController.Edit);
 router.put('/students/:id', checkAuth, StudentController.Update);
 router.delete('/students/:id', checkAuth, StudentController.Destroy);
+router.get('/students/importCSV', checkAuth, StudentController.importCSV);
+router.post('/students/importCSV', checkAuth, StudentController.importCSV);
 
 // Charts
 router.get('/charts', checkAuth, ChartController.Index);
