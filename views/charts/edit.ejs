@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+
+	<div class="card">
+		<div class="card-header">
+			<h2 class="text-center"><%= title %></h2>
+		</div>
+		<div class="card-body">
+			
+			<form method="POST" action="/charts/<%= chart.id %>?_method=PUT">
+
+				<input type="text" name="course" class="form-control" value="<%= chart.Course.name %>" readonly>
+				<input type="text" name="tool" class="form-control" value="<%= chart.Tool.name %>" readonly>
+				<input type="text" name="programoutcome" class="form-control" value="<%= chart.ProgramOutcome.name %>" readonly>
+				<input type="text" name="fulfil" class="form-control" value="<%= chart.fulfil %>">
+
+				<br>
+				<div class="text-center">
+					<input type="submit" name="" value="Update" class="btn btn-success">
+				</div>
+
+			</form>
+			
+		</div>
+	</div>
+
+<% include ../partials/footer %>

@@ -69,7 +69,7 @@ module.exports.Create = function(req, res) {
 					}
 				}]
 			}).then((tools) => {
-				res.render('charts/createOrEdit', {
+				res.render('charts/create', {
 					title: 'Create Chart',
 					tools: tools,
 					course: course,
@@ -107,20 +107,9 @@ module.exports.Edit = function(req, res) {
 	Chart.findById(req.params.id, {
 		include: [ Course, Tool, ProgramOutcome ]
 	}).then((chart) => {
-		Course.findById(chart.Course.id, {
-			include: [ {
-				model: Group,
-				include: [ Tool ]
-			} ]
-		}).then((course) => {
-			ProgramOutcome.findAll().then((programoutcomes) => {
-				res.send({
-					title: 'Create Chart',
-					chart: chart,
-					course: course,
-					programoutcomes: programoutcomes
-				})
-			})
+		res.render('charts/edit', {
+			title: 'Edit Chart',
+			chart: chart
 		})
 	})
 	
@@ -128,7 +117,15 @@ module.exports.Edit = function(req, res) {
 
 module.exports.Update = function(req, res) {
 
-	
+	Chart.findOne({
+		where: {
+			id: req.params.id
+		}
+	}).then((chart) => {
+		chart.update({
+			fulfil: req.body.fulfil
+		}).then(() => res.redirect('/charts'))
+	})
 
 }
 
