@@ -163,6 +163,7 @@ router.delete('/assessments/:id', checkAuth, AssessmentController.Destroy);
 // Reports
 router.get('/reports/all', checkAuth, ReportsController.All);
 router.post('/reports/all', checkAuth, ReportsController.All);
+router.post('/reports/studentwise/getstudents', ReportsController.getStudents);
 router.get('/reports/studentwise', checkAuth, ReportsController.StudentWise);
 router.post('/reports/studentwise', checkAuth, ReportsController.StudentWise);
 router.get('/reports/coursewise', checkAuth, ReportsController.CourseWise);
