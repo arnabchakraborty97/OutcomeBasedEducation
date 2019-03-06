@@ -346,6 +346,17 @@ var createP = function(students, semester, callback) {
 	}
 }
 
+
+module.exports.getStudents = function (req, res) {
+	Student.findAll({
+		where: { batch_of: req.body.batch }
+	}).then((students) => {
+		//res.setHeader('Content-Type', 'application/json');
+		res.json({students: students});
+	});
+}
+
+
 // Function to handle requests for individual reports
 // On get requet, render the studentwise page with all the student models to populate the select field
 // On post request, take the student and semester data
@@ -353,7 +364,16 @@ var createP = function(students, semester, callback) {
 // Add all POs to get total of them
 // Render the studentwise page with the data in context
 module.exports.StudentWise = function(req, res) {
-
+	/*if (req.method == 'GET') {
+		res.render('students/index', {title: 'Students'});
+	}
+	else if (req.method == 'POST') {
+		Student.findAll({
+			where: { batch_of: req.body.batch },
+			include: [ Department ]
+		}).then((students) => res.render('students/index', { title: 'Students', students: students, batch_selected: req.body.batch }))	
+	}*/
+	
 	if (req.method == 'GET') {
 
 		Student.findAll({

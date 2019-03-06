@@ -9,11 +9,25 @@
 			<form method="POST" action="/reports/studentwise" class="form-group">
 				
 				<div class="row">
+					<label for="batch" class="col-form-label col-md-2 offset-md-3 text-md-right">Batch: </label>
+					<select class="form-control col-md-3" id="batch" name="batch">
+						<option value="2013-2017" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2013-2017") { %> selected <% } %> <% } %>>2013-2017</option>
+						<option value="2014-2018" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2014-2018") { %> selected <% } %> <% } %>>2014-2018</option>
+						<option value="2015-2019" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2015-2019") { %> selected <% } %> <% } %>>2015-2019</option>
+						<option value="2016-2020" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2016-2020") { %> selected <% } %> <% } %>>2016-2020</option>
+						<option value="2017-2021" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2017-2021") { %> selected <% } %> <% } %>>2017-2021</option>
+						<option value="2018-2022" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2018-2022") { %> selected <% } %> <% } %>>2018-2022</option>
+						<option value="2019-2023" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2019-2023") { %> selected <% } %> <% } %>>2019-2023</option>
+						<option value="2020-2024" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2020-2024") { %> selected <% } %> <% } %>>2020-2024</option>
+						<option value="2021-2025" <% if (typeof batch_selected !== 'undefined') { %> <% if(batch_selected == "2021-2025") { %> selected <% } %> <% } %>>2021-2025</option>
+					</select>
+				</div>
+				<br>
+				<br>
+				<div class="row">
 					<label for="student" class="col-form-label col-md-2 text-md-right">Student: </label>
 					<select class="form-control col-md-3" id="student" name="student">
-						<% students.forEach((student) => { %>
-							<option value="<%= student.id %>" <% if (typeof student_selected !== 'undefined') { %> <% if(student_selected == student.id) { %> selected <% } %> <% } %>><%= student.roll %> - <%= student.name %> - <%= student.Department.name %></option>
-						<% }) %>
+							<option value="">Select Student</option>
 					</select>
 
 					<label for="semester" class="col-form-label col-md-2 text-md-right">Semester: </label>
@@ -42,7 +56,7 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h2 class="text-center">Results</h2>
+				<h2 class="text-center">Results <%= student_selected %></h2>
 			</div>
 			<div class="card-body">
 				<table class="table table-bordered">
@@ -105,3 +119,33 @@
 	<% } %>
 
 <% include ../partials/footer %>
+
+<script type="text/javascript">
+
+	$('#batch').change(function() {
+		var selected = $(this).find(':selected').text();
+		console.log(selected);
+		$.ajax({
+            type: "POST",
+            url:"http://127.0.0.1:8000/reports/studentwise/getstudents",
+			dataType: "json",
+			data: {
+				batch: selected
+			},
+            	success: function (data) {
+				console.log(data.students);
+				$.each(data.students, function(key, val) {
+					//console.log(val.name);
+					var div_data="<option value="+val.id+">"+val.roll+" - "+val.name+"</option>";
+					console.log(div_data);
+					$(div_data).appendTo('#student'); 
+				});  
+			}
+		 	
+		});
+	});
+	function getstudents(batch) {
+		console.log(batch);
+	}
+
+</script>
